@@ -33,6 +33,7 @@ public class GuiWaypointName extends GuiScreen {
 		Keyboard.enableRepeatEvents(true);
 		buttonList.clear();
 		buttonList.add(doneButton = new GuiButton(0, width / 2 - 100, height / 4 + 96 + 12, I18n.format("gui.done")));
+		buttonList.add(new GuiButton(1, width / 2 - 100, height / 4 + 96 + 12 + 22, I18n.format("gui.cancel")));
 		waypointName = new GuiTextField(0, fontRenderer, this.width / 2 - 150, 60, 300, 20);
 		waypointName.setMaxStringLength(128);
 		waypointName.setFocused(true);
@@ -47,12 +48,16 @@ public class GuiWaypointName extends GuiScreen {
 	
 	@Override
 	protected void actionPerformed(GuiButton par1GuiButton) {
-		if (par1GuiButton.enabled) {
-			PacketWaypointName packet = new PacketWaypointName(waypointName.getText());
-			WarpBookMod.network.sendToServer(packet);
+
+		if(par1GuiButton == doneButton) {
+			if (par1GuiButton.enabled) {
+				PacketWaypointName packet = new PacketWaypointName(waypointName.getText());
+				WarpBookMod.network.sendToServer(packet);
 			
-			mc.displayGuiScreen((GuiScreen)null);
+			}
 		}
+		
+		mc.displayGuiScreen((GuiScreen)null);
 	}
 	
 	@Override
