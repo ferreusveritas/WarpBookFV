@@ -1,0 +1,64 @@
+buildscript
+{
+    repositories
+    {
+        jcenter()
+        maven
+        {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies
+    {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+version = "3.0.1"
+group = "com.panicnot42.warpbook"
+archivesBaseName = "Warpbook"
+
+minecraft
+{
+    version = "1.12.2-14.23.0.2491"
+    runDir = "run"
+
+    mappings = "snapshot_20170624"
+    
+    replaceIn "com/panicnot42/warpbook/Properties.java"
+    replace "@VERSION@", rootProject.version
+}
+
+dependencies
+{
+}
+
+processResources
+{
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    // replace stuff in mcmod.info, and Properties.java
+    from(sourceSets.main.resources.srcDirs)
+    {
+        include 'mcmod.info'
+        
+        // replace version and mcversion
+        expand 'version':project.version, 'mcversion':project.minecraft.version, 'modid':project.archivesBaseName
+    }
+        
+    // copy everything else, thats not the mcmod.info
+    from(sourceSets.main.resources.srcDirs)
+    {
+        exclude 'mcmod.info'
+    }
+}
+
+apply plugin: 'java'
+compileJava
+{
+    options.compilerArgs << '-Xlint:deprecation'
+}
