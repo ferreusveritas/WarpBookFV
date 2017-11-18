@@ -7,7 +7,6 @@ import com.panicnot42.warpbook.item.PlayerWarpPageItem;
 import com.panicnot42.warpbook.item.PotatoWarpPageItem;
 import com.panicnot42.warpbook.item.UnboundWarpPageItem;
 import com.panicnot42.warpbook.item.WarpBookItem;
-import com.panicnot42.warpbook.item.WarpFuelItem;
 import com.panicnot42.warpbook.item.WarpPageItem;
 
 import net.minecraft.item.Item;
@@ -22,7 +21,6 @@ public class WarpItems {
 	public UnboundWarpPageItem unboundWarpPageItem;
 	public PotatoWarpPageItem potatoWarpPageItem;
 	public DeathlyWarpPageItem deathlyWarpPageItem;
-	public WarpFuelItem warpFuelItem;
 	public WarpPageItem legacyPageItem;
 	
 	public WarpItems() {
@@ -33,7 +31,6 @@ public class WarpItems {
 		unboundWarpPageItem = new UnboundWarpPageItem("unboundwarppage");
 		potatoWarpPageItem = new PotatoWarpPageItem("potatowarppage");
 		deathlyWarpPageItem = new DeathlyWarpPageItem("deathlywarppage");
-		warpFuelItem = new WarpFuelItem("warpfuel");
 		legacyPageItem = new WarpPageItem("warppage");
 	}
 	
@@ -45,7 +42,6 @@ public class WarpItems {
 		registry.register(unboundWarpPageItem);
 		registry.register(potatoWarpPageItem);
 		registry.register(deathlyWarpPageItem);
-		registry.register(warpFuelItem);
 		registry.register(legacyPageItem);
 		
 		ItemBlock itemBlock = new ItemBlock(WarpBookMod.blocks.bookCloner);
