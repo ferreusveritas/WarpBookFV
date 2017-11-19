@@ -15,6 +15,7 @@ import com.panicnot42.warpbook.util.CommandUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -88,13 +89,13 @@ public class GuiBook extends GuiScreen {
 			buttonList.add(but);
 			warps.add(but);
 		}
-		y = (height / 2) + (ySize / 2) - 22;
+		y = (height / 2) + (ySize / 2) - 24;
 		
 		// Add back and forward buttons
 		pageCount = (pos.size() - 1) / (warpsPerPage);
 		if (pageCount != 0) {
-			buttonList.add(prev = new WarpButton(64, x, y, 32, 12, "<<<"));
-			buttonList.add(next = new WarpButton(65, x + 64, y, 32, 12, ">>>"));
+			buttonList.add(prev = new NextPageButton(64, x, y, false));
+			buttonList.add(next = new NextPageButton(65, x + 64, y, true));
 		}
 		
 		updateButtonStat();
@@ -104,10 +105,10 @@ public class GuiBook extends GuiScreen {
 		page = MathHelper.clamp(page, 0, pageCount);
 		
 		if (prev != null) {
-			prev.enabled = page != 0;
+			prev.visible = page != 0;
 		}
 		if (next != null) {
-			next.enabled = pageCount > page;
+			next.visible = pageCount > page;
 		}
 		int r = pos.size() - page * warpsPerPage;
 		int n = Math.min(r, warpsPerPage);
@@ -163,6 +164,45 @@ public class GuiBook extends GuiScreen {
 
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
+	
+    @SideOnly(Side.CLIENT)
+    static class NextPageButton extends GuiButton
+        {
+            private final boolean isForward;
+
+            public NextPageButton(int buttonId, int x, int y, boolean isForwardIn)
+            {
+                super(buttonId, x, y, 23, 13, "");
+                this.isForward = isForwardIn;
+            }
+
+            /**
+             * Draws this button to the screen.
+             */
+            public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks)
+            {
+                if (this.visible)
+                {
+                    boolean flag = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+                    GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+            		mc.getTextureManager().bindTexture(invBg);
+                    int i = 0;
+                    int j = 192;
+
+                    if (flag)
+                    {
+                        i += 23;
+                    }
+
+                    if (!this.isForward)
+                    {
+                        j += 13;
+                    }
+
+                    this.drawTexturedModalRect(this.x, this.y, i, j, 23, 13);
+                }
+            }
+        }
 	
 	@Override
 	public boolean doesGuiPauseGame() {
