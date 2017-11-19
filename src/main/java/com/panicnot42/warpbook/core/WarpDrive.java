@@ -19,7 +19,6 @@ import net.minecraft.network.play.server.SPacketEntityEffect;
 import net.minecraft.network.play.server.SPacketRespawn;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.server.management.PlayerList;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.WorldProvider;
@@ -77,17 +76,6 @@ public class WarpDrive {
 			break;
 		}
 		return exhaustionCoefficient * scaleFactor * (crossDim ? 2.0f : 1.0f);
-	}
-
-	public void goFullPotato(EntityPlayer player, ItemStack itemStack) {
-		DamageSource potato = new DamageSource("potato");
-		potato.setDamageAllowedInCreativeMode();
-		potato.setDamageBypassesArmor();
-		potato.setDamageIsAbsolute();
-
-		player.world.newExplosion(null, player.posX, player.posY, player.posZ, 12, true, true);
-
-		player.attackEntityFrom(potato, player.getMaxHealth());
 	}
 
 	// These next two methods are from

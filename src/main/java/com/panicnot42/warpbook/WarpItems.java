@@ -4,7 +4,6 @@ import com.panicnot42.warpbook.item.BoundWarpPageItem;
 import com.panicnot42.warpbook.item.DeathlyWarpPageItem;
 import com.panicnot42.warpbook.item.HyperBoundWarpPageItem;
 import com.panicnot42.warpbook.item.PlayerWarpPageItem;
-import com.panicnot42.warpbook.item.PotatoWarpPageItem;
 import com.panicnot42.warpbook.item.UnboundWarpPageItem;
 import com.panicnot42.warpbook.item.WarpBookItem;
 import com.panicnot42.warpbook.item.WarpPageItem;
@@ -19,7 +18,6 @@ public class WarpItems {
 	public HyperBoundWarpPageItem hyperWarpPageItem;
 	public BoundWarpPageItem boundWarpPageItem;
 	public UnboundWarpPageItem unboundWarpPageItem;
-	public PotatoWarpPageItem potatoWarpPageItem;
 	public DeathlyWarpPageItem deathlyWarpPageItem;
 	public WarpPageItem legacyPageItem;
 	
@@ -29,7 +27,6 @@ public class WarpItems {
 		hyperWarpPageItem = new HyperBoundWarpPageItem("hyperwarppage");
 		boundWarpPageItem = new BoundWarpPageItem("boundwarppage");
 		unboundWarpPageItem = new UnboundWarpPageItem("unboundwarppage");
-		potatoWarpPageItem = new PotatoWarpPageItem("potatowarppage");
 		deathlyWarpPageItem = new DeathlyWarpPageItem("deathlywarppage");
 		legacyPageItem = new WarpPageItem("warppage");
 	}
@@ -40,7 +37,6 @@ public class WarpItems {
 		registry.register(hyperWarpPageItem);
 		registry.register(boundWarpPageItem);
 		registry.register(unboundWarpPageItem);
-		registry.register(potatoWarpPageItem);
 		registry.register(deathlyWarpPageItem);
 		registry.register(legacyPageItem);
 		

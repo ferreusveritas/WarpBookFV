@@ -40,16 +40,6 @@ public class Crafting {
 		);
 		
 		GameRegistry.addShapelessRecipe(
-			new ResourceLocation(Properties.modid, "potatoWarpPage"),//Name
-			null,//Group
-			new ItemStack(WarpBookMod.items.potatoWarpPageItem, 1),//Output
-			new Ingredient[] {
-				Ingredient.fromStacks(new ItemStack(Items.POTATO, 1)),
-				Ingredient.fromStacks(new ItemStack(Items.PAPER, 1))
-			}
-		);
-		
-		GameRegistry.addShapelessRecipe(
 			new ResourceLocation(Properties.modid, "deathlyWarpPage"),//Name
 			null,//Group
 			new ItemStack(WarpBookMod.items.deathlyWarpPageItem, 1),//Output

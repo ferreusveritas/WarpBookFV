@@ -52,9 +52,6 @@ public class WarpPageItem extends Item {
 			case 3:
 				newStack = new ItemStack(WarpBookMod.items.deathlyWarpPageItem, itemStack.getCount());
 				break;
-			case 4:
-				newStack = new ItemStack(WarpBookMod.items.potatoWarpPageItem, itemStack.getCount());
-				break;
 			case 5:
 				newStack = new ItemStack(WarpBookMod.items.playerWarpPageItem, itemStack.getCount());
 				break;

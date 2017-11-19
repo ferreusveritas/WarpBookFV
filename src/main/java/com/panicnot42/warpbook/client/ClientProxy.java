@@ -21,7 +21,6 @@ public class ClientProxy extends Proxy {
 		m.register(WarpBookMod.items.boundWarpPageItem, 0, new ModelResourceLocation(Properties.modid + ":boundwarppage", "inventory"));
 		m.register(WarpBookMod.items.hyperWarpPageItem, 0, new ModelResourceLocation(Properties.modid + ":hyperwarppage", "inventory"));
 		m.register(WarpBookMod.items.deathlyWarpPageItem, 0, new ModelResourceLocation(Properties.modid + ":deathlywarppage", "inventory"));
-		m.register(WarpBookMod.items.potatoWarpPageItem, 0, new ModelResourceLocation(Properties.modid + ":potatowarppage", "inventory"));
 		m.register(WarpBookMod.items.playerWarpPageItem, 0, new ModelResourceLocation(Properties.modid + ":playerwarppage", "inventory"));
 		m.register(WarpBookMod.items.warpBookItem, 0, new ModelResourceLocation(Properties.modid + ":warpbook", "inventory"));
 		m.register(WarpBookMod.items.legacyPageItem, 0, new ModelResourceLocation(Properties.modid + ":warppage", "inventory"));
