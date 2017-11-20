@@ -50,28 +50,42 @@ public class Crafting {
 		);
 		
 		GameRegistry.addShapedRecipe(
+			new ResourceLocation(Properties.modid, "warpCluster"),//Name
+			null,//Group
+			new ItemStack(WarpBookMod.items.warpClusterItem),//Output
+			"eee",
+			"ere",
+			"eee",
+			'e', new ItemStack(Items.ENDER_PEARL),
+			'r', new ItemStack(Items.REDSTONE)
+		);
+		
+		GameRegistry.addShapedRecipe(
 			new ResourceLocation(Properties.modid, "bookCloner"),//Name
 			null,//Group
 			new ItemStack(WarpBookMod.blocks.bookCloner, 1),//Output
-			"isi",
-			"sws",
-			"isi",
-			'i', new ItemStack(Items.IRON_INGOT, 1),
-			's', new ItemStack(Blocks.BOOKSHELF, 1),
-			'w', new ItemStack(WarpBookMod.items.warpBookItem, 1)
+			"sss",
+			"owo",
+			"ggg",
+			's', new ItemStack(Blocks.STONE_SLAB),
+			'o', new ItemStack(Blocks.OBSIDIAN),
+			'w', new ItemStack(WarpBookMod.items.warpClusterItem),
+			'g', new ItemStack(Items.GOLD_INGOT)
 		);
 		
 		GameRegistry.addShapedRecipe(
 			new ResourceLocation(Properties.modid, "teleporter"),//Name
 			null,//Group
 			new ItemStack(WarpBookMod.blocks.teleporter, 1),//Output
-			"bsb",
-			"coc",
-			"bsb",
-			'b', new ItemStack(Blocks.IRON_BLOCK, 1),
-			's', new ItemStack(Blocks.BOOKSHELF, 1),
-			'c', new ItemStack(WarpBookMod.blocks.bookCloner, 1),
-			'o', new ItemStack(WarpBookMod.items.warpBookItem, 1)
+			"qpq",
+			"ece",
+			"owo",
+			'q', new ItemStack(Items.QUARTZ),
+			'p', new ItemStack(Blocks.STONE_PRESSURE_PLATE),
+			'e', new ItemStack(Blocks.END_ROD),
+			'c', new ItemStack(WarpBookMod.items.warpClusterItem),
+			'o', new ItemStack(Blocks.OBSIDIAN),
+			'w', new ItemStack(WarpBookMod.items.warpBookItem)
 		);
 		
 		registry.register(

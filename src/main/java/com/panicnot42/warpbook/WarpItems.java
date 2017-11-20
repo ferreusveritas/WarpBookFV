@@ -6,6 +6,7 @@ import com.panicnot42.warpbook.item.HyperBoundWarpPageItem;
 import com.panicnot42.warpbook.item.PlayerWarpPageItem;
 import com.panicnot42.warpbook.item.UnboundWarpPageItem;
 import com.panicnot42.warpbook.item.WarpBookItem;
+import com.panicnot42.warpbook.item.WarpItem;
 import com.panicnot42.warpbook.item.WarpPageItem;
 
 import net.minecraft.item.Item;
@@ -20,8 +21,10 @@ public class WarpItems {
 	public UnboundWarpPageItem unboundWarpPageItem;
 	public DeathlyWarpPageItem deathlyWarpPageItem;
 	public WarpPageItem legacyPageItem;
+	public Item warpClusterItem;
 	
 	public WarpItems() {
+		
 		warpBookItem = new WarpBookItem("warpbook");
 		playerWarpPageItem = new PlayerWarpPageItem("playerwarppage");
 		hyperWarpPageItem = new HyperBoundWarpPageItem("hyperwarppage");
@@ -29,6 +32,7 @@ public class WarpItems {
 		unboundWarpPageItem = new UnboundWarpPageItem("unboundwarppage");
 		deathlyWarpPageItem = new DeathlyWarpPageItem("deathlywarppage");
 		legacyPageItem = new WarpPageItem("warppage");
+		warpClusterItem = new WarpItem("warpCluster");
 	}
 	
 	public void register(IForgeRegistry<Item> registry) {
@@ -39,6 +43,7 @@ public class WarpItems {
 		registry.register(unboundWarpPageItem);
 		registry.register(deathlyWarpPageItem);
 		registry.register(legacyPageItem);
+		registry.register(warpClusterItem);
 		
 		ItemBlock itemBlock = new ItemBlock(WarpBookMod.blocks.bookCloner);
 		itemBlock.setRegistryName(WarpBookMod.blocks.bookCloner.getRegistryName());

@@ -25,8 +25,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class BlockTeleporter extends Block implements ITileEntityProvider {
-	
-	protected static final AxisAlignedBB TELEPORTER_AABB = new AxisAlignedBB(1.0D / 16.0D, 0.0D, 1.0D / 16.0D, 15.0D / 16.0D, 1.0D / 16.0D, 15.0D / 16.0D);
+	protected static final AxisAlignedBB TELEPORTER_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 4.0D / 16.0D, 1.0D);
 	public static final PropertyBool ACTIVE = PropertyBool.create("active");
 	
 	public BlockTeleporter() {
