@@ -1,8 +1,9 @@
 Warp Book
 =========
 
-This niche mod allows for easy teleportation between given points. It offers a
-simple alternative to the standard /home and /warp commands
+This niche mod allows for easy teleportation between given points without admin privileges. It offers a simple alternative to the standard /home and /warp commands.
+
+This is a continuation of the work done by [Panicnot42](https://github.com/Outurnate) in 2016.  This version features a multitude of bug fixes, graphic overhauls, and improved features.
 
 
 What's changed from the original 1.8.9 version and why
@@ -13,7 +14,7 @@ Recipes and Items
 -----------------
 
 What Changed: Warp Potions were added.  
-Rationale: Warp potions are a consumable warp item and a sensible crafting ingredient.  It's also a fluid so it can be used as a fuel in the future.
+Rationale: Warp potions are a consumable warp item and a sensible crafting ingredient.  It's also a fluid so it can be used as a convenient fuel in the future.
 
 What Changed: Warp clusters were added.  
 Rationale: This makes the mod a bit less OP since more difficult to obtain resources are needed.  Clusters become the main ingredient for crafting to reduce recipe collision with other mods.
