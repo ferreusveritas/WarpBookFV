@@ -12,20 +12,20 @@ What's changed from the original 1.8.9 version and why
 Recipes and Items
 -----------------
 
-What Changed: Warp Potions were added  
+What Changed: Warp Potions were added.  
 Rationale: Warp potions are a consumable warp item and a sensible crafting ingredient.  It's also a fluid so it can be used as a fuel in the future.
 
-What Changed: Warp clusters were added  
+What Changed: Warp clusters were added.  
 Rationale: This makes the mod a bit less OP since more difficult to obtain resources are needed.  Clusters become the main ingredient for crafting to reduce recipe collision with other mods.
 
 What Changed: Deathly warp page recipe has been changed back to the original 1.7.10 recipe.  
-Rationale: This is a powerful feature that should require more expensive ingredients
+Rationale: This is a powerful feature that should require more expensive ingredients.
 
-What Changed: Exploding potato pages were removed  
+What Changed: Exploding potato pages were removed.  
 Rationale: This appears to be a scope creep issue and a useless item that doesn't belong in the mod.
 
 What Changed: Warp fuel has been removed.  
-Rationale: This wasn't a fully formed concept and will be revisited using a better mechanism at a later date
+Rationale: This wasn't a fully formed concept and will be revisited using a better mechanism at a later date.
 
 
 Warp Pages
@@ -35,7 +35,7 @@ What Changed: Warp pages are no longer consumed on use.
 Rationale: Why would a page be consumed when used if it's not consumed in the book?  Warp potions replace the concept of the consumable warp item.
 
 What Changed: Warp pages can no longer be erased to create an unbound warp page.  
-Rationale: Warp pages should be permanant objects and cannot change to anything else.
+Rationale: Warp pages should be permanant objects that cannot be undone, like a Minecraft map.
 
 What Changed: Warp pages are crafted from paper and warp potion.  
 Rationale: Warp potions make more sense for crafting because paper can soak up the warp potion whereas how a pearl becomes fused with paper is unclear.
@@ -54,7 +54,7 @@ What Changed: Warp book now accepts blank pages.
 Rationale: This provides a convenient place to store blank pages.
 
 What Changed: The color of the warpbook is now natural leather with an ender pearl on the cover.  
-Rationale: A stylistic choice to make the book feel more in line with the materials it's made of. Besides, there's no reason why the book would be blue.
+Rationale: A stylistic choice to make the book feel more in line with the materials it's made of. Besides, there's no reason why the book would be blue. The ender pearl on the cover gives the player a hint at what it's used for.
 
 What Changed: Warp book gui improvements.  Button graphics have been fixed. Fwd and Back buttons match vanilla book style. Gui color matches item color of warp book.  
 Rationale: The gui did not match the Vanilla Minecraft book enough for consistancy. The gui looked broken.
@@ -63,8 +63,8 @@ Rationale: The gui did not match the Vanilla Minecraft book enough for consistan
 The Book Cloner
 ---------------
 
-What Changed: The book cloner recipe has been redone  
-Rationale: The old recipe didn't make any sense and the finished product looks nothing like it's components.
+What Changed: The book cloner block recipe has been redone.  
+Rationale: The old recipe didn't make any sense and the finished product looked nothing like it's components.
 
 What Changed: The book cloner block model has been redesigned.  
 Rationale: The old book cloner didn't look like a completed design. The new design looks more like a workbench and has ender pearl accents to imply it's purpose.
