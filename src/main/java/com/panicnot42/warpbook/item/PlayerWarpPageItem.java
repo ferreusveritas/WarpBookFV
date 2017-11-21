@@ -4,35 +4,24 @@ import java.math.RoundingMode;
 import java.util.List;
 import java.util.UUID;
 
-import com.panicnot42.warpbook.WarpBookMod;
 import com.panicnot42.warpbook.core.IDeclareWarp;
+import com.panicnot42.warpbook.core.WarpColors;
 import com.panicnot42.warpbook.util.MathUtils;
 import com.panicnot42.warpbook.util.Waypoint;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class PlayerWarpPageItem extends Item implements IDeclareWarp {
+public class PlayerWarpPageItem extends WarpPageItem implements IDeclareWarp {
+
 	public PlayerWarpPageItem(String name) {
-		setUnlocalizedName(name);
-		setRegistryName(name);
-		setMaxStackSize(16);
-	}
-	
-	@Override
-	public int getMaxItemUseDuration(ItemStack itemStack) {
-		return 1;
+		super(name);
 	}
 	
 	@Override
@@ -64,24 +53,6 @@ public class PlayerWarpPageItem extends Item implements IDeclareWarp {
 	}
 	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-	//public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
-		ItemStack itemStack = player.getHeldItem(hand);
-		
-		if (player.isSneaking()) {
-			itemStack = new ItemStack(WarpBookMod.items.unboundWarpPageItem, itemStack.getCount());
-			itemStack.setTagCompound(new NBTTagCompound());
-		}
-		else {
-			WarpBookMod.warpDrive.handleWarp(player, itemStack);
-			if (!player.capabilities.isCreativeMode) {
-				itemStack.shrink(1);
-			}
-		}
-		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, itemStack);
-	}
-	
-	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flagIn) {
 		if (stack.hasTagCompound()) {
@@ -90,13 +61,24 @@ public class PlayerWarpPageItem extends Item implements IDeclareWarp {
 	}
 	
 	@Override
-	public Boolean ValidData(ItemStack stack) {
+	public boolean hasValidData(ItemStack stack) {
 		return stack.getTagCompound().hasKey("playeruuid");
 	}
 	
 	@Override
-	public Boolean WarpCloneable() {
-		return true;
+	public boolean isWarpCloneable(ItemStack stack) {
+		return false;//Let's make sure that player warp pages aren't copyable.  For security purposes.
 	}
 	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int pageColor() {
+		return WarpColors.UNBOUND.getColor();
+	}
+	
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int symbolColor() {
+		return WarpColors.PLAYER.getColor();
+	}
 }

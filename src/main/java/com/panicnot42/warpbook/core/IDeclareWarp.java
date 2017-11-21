@@ -9,6 +9,13 @@ import net.minecraft.world.World;
 public interface IDeclareWarp {
   String GetName(World world, ItemStack stack);
   Waypoint GetWaypoint(EntityPlayer player, ItemStack stack);
-  Boolean ValidData(ItemStack stack);
-  Boolean WarpCloneable();
+  
+  /** Does this stack have valid waypoint data? */
+  boolean hasValidData(ItemStack stack);
+  
+  /** Basically can this be copied? Either in the book cloner or via a copy recipe */
+  boolean isWarpCloneable(ItemStack stack);
+
+  /** Can this go in a book? */
+  boolean canGoInBook();
 }

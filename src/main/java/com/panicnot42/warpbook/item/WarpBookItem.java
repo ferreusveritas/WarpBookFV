@@ -26,7 +26,7 @@ public class WarpBookItem extends Item {
 		setRegistryName(name);
 		setMaxStackSize(1);
 		setCreativeTab(WarpBookMod.tabBook);
-		setMaxDamage(WarpBookMod.fuelEnabled ? 16 : 0);
+		setMaxDamage(0);
 	}
 	
 	@Override
@@ -71,10 +71,6 @@ public class WarpBookItem extends Item {
 		return item.getTagCompound().getShort("deathPages");
 	}
 	
-	public static int getFuelLeft(ItemStack item) {
-		return 64 - item.getItemDamage();
-	}
-	
 	public static void setRespawnsLeft(ItemStack item, int deaths) {
 		if (item.getTagCompound() == null) {
 			item.setTagCompound(new NBTTagCompound());
@@ -82,16 +78,8 @@ public class WarpBookItem extends Item {
 		item.getTagCompound().setShort("deathPages", (short)deaths);
 	}
 	
-	public static void setFuelLeft(ItemStack item, int fuel) {
-		item.setItemDamage(64 - fuel);
-	}
-	
 	public static void decrRespawnsLeft(ItemStack item) {
 		setRespawnsLeft(item, getRespawnsLeft(item) - 1);
-	}
-	
-	public static void decrFuelLeft(ItemStack item) {
-		setFuelLeft(item, getFuelLeft(item) - 1);
 	}
 	
 	public static int getCopyCost(ItemStack itemStack) {
@@ -104,7 +92,7 @@ public class WarpBookItem extends Item {
 		int count = 0;
 		for (int i = 0; i < items.tagCount(); ++i) {
 			ItemStack item = new ItemStack(items.getCompoundTagAt(i));
-			if (((IDeclareWarp)item.getItem()).WarpCloneable()) {
+			if (((IDeclareWarp)item.getItem()).isWarpCloneable(item)) {
 				count += item.getCount();
 			}
 		}
@@ -117,7 +105,7 @@ public class WarpBookItem extends Item {
 		NBTTagList destPages = new NBTTagList();
 		for (int i = 0; i < pages.tagCount(); ++i) {
 			ItemStack item = new ItemStack(pages.getCompoundTagAt(i));
-			if (item.getItem() instanceof IDeclareWarp && ((IDeclareWarp)item.getItem()).WarpCloneable()) {
+			if (item.getItem() instanceof IDeclareWarp && ((IDeclareWarp)item.getItem()).isWarpCloneable(item)) {
 				NBTTagCompound tag = new NBTTagCompound();
 				item.writeToNBT(tag);
 				destPages.appendTag(tag);

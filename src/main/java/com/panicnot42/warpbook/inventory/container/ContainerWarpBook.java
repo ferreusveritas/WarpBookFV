@@ -32,13 +32,8 @@ public class ContainerWarpBook extends Container {
 			this.addSlotToContainer(new SlotWarpBookInventory(inventoryPlayer, i, 8 + i * 18, 198));
 		}
 		
-		/*
-		if (WarpBookMod.fuelEnabled) {
-			this.addSlotToContainer(new WarpBookEnderSlot(inventorySpecial, 0, 174, 54));
-		}
-		*/
 		if (WarpBookMod.deathPagesEnabled) {
-			this.addSlotToContainer(new SlotWarpBookDeathly(inventorySpecial, 1, 174, 72));
+			this.addSlotToContainer(new SlotWarpBookDeathly(inventorySpecial, 0, 174, 72));
 		}
 	}
 	

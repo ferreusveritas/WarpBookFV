@@ -1,9 +1,8 @@
 package com.panicnot42.warpbook.block;
 
 import com.panicnot42.warpbook.WarpBookMod;
-import com.panicnot42.warpbook.core.IDeclareWarp;
+import com.panicnot42.warpbook.item.WarpPotionItem;
 import com.panicnot42.warpbook.tileentity.TileEntityTeleporter;
-import com.panicnot42.warpbook.util.WorldUtils;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
@@ -15,6 +14,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -75,8 +75,7 @@ public class BlockTeleporter extends Block implements ITileEntityProvider {
 				newState = state.withProperty(ACTIVE, false);
 				world.setBlockState(pos, newState);*/
 			}
-			else if (!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() instanceof IDeclareWarp) {
-				if (((IDeclareWarp)player.getHeldItem(hand).getItem()).WarpCloneable()) {
+			else if (!player.getHeldItem(hand).isEmpty() && player.getHeldItem(hand).getItem() instanceof WarpPotionItem) {
 					teleporter.SetPage(player.getHeldItem(hand));
 					if (player.getHeldItem(hand).getCount() < 1) {
 						player.getHeldItem(hand).shrink(1);
@@ -84,9 +83,9 @@ public class BlockTeleporter extends Block implements ITileEntityProvider {
 					else {
 						player.inventory.setInventorySlotContents(player.inventory.currentItem, ItemStack.EMPTY);
 					}
+					player.addItemStackToInventory(new ItemStack(Items.GLASS_BOTTLE));
 					newState = state.withProperty(ACTIVE, true);
 					world.setBlockState(pos, newState);
-				}
 			}
 			world.notifyBlockUpdate(pos, state, newState, 3);
 			teleporter.markDirty();
@@ -116,15 +115,6 @@ public class BlockTeleporter extends Block implements ITileEntityProvider {
 	@Override
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
-	}
-	
-	@Override
-	public void breakBlock(World world, BlockPos pos, IBlockState state) {
-		if (!world.isRemote) {
-			ItemStack stack = ((TileEntityTeleporter)world.getTileEntity(pos)).GetPage();
-			stack.setCount(1);
-			WorldUtils.dropItemStackInWorld(world, pos.getX(), pos.getY(), pos.getZ(), stack);
-		}
 	}
 	
 }

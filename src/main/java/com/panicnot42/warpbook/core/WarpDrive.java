@@ -27,12 +27,13 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class WarpDrive {
-	public void handleWarp(EntityPlayer player, ItemStack page)	{
-		if (page.getItem() instanceof IDeclareWarp && !player.world.isRemote) {
-			Waypoint wp = ((IDeclareWarp)page.getItem()).GetWaypoint(player, page);
+	public void handleWarp(EntityPlayer player, ItemStack warpItem)	{
+		if (warpItem.getItem() instanceof IDeclareWarp && !player.world.isRemote) {
+			Waypoint wp = ((IDeclareWarp)warpItem.getItem()).GetWaypoint(player, warpItem);
 			if (wp == null) {// TODO only for type 5
-				if (player.world.isRemote)
+				if (player.world.isRemote) {
 					CommandUtils.showError(player, I18n.format("help.waypointnotexist"));
+				}
 				return;
 			}
 			boolean crossDim = player.dimension != wp.dim;

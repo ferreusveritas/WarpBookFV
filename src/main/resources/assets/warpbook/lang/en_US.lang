@@ -1,13 +1,14 @@
 item.warpbook.name=Warp Book
 item.unboundwarppage.name=Unbound Warp Page
 item.boundwarppage.name=Bound Warp Page
-item.hyperboundwarppage.name=Hyper Warp Page
-item.potatowarppage.name=Potato Page
-item.playerwarppage.name=Player Page
+item.hyperwarppage.name=Hyper Warp Page
+item.playerwarppage.name=Player Warp Page
 item.deathlywarppage.name=Deathly Warp Page
-item.warpplate.name=Warp Book Printing Plate
-item.warpfuel.name=Warp Fuel
 item.warppage.name=Legacy Warp Page
+item.unboundwarppotion.name=Unbound Warp Potion
+item.boundwarppotion.name=Bound Warp Potion
+item.warpcluster.name=Warp Cluster
+item.playerwarppotion.name=Player Warp Potion
 
 itemGroup.tabWarpBook=Warp Book
 
@@ -29,12 +30,8 @@ help.waypointdelete=Poof!
 help.notawaypoint='%s' is not a waypoint
 help.waypointcreated=Waypoint created
 help.selfaport=Congratulations!  You just teleported to yourself
-help.potato.flavour1=Harnesses the awesome power latent within a potato
-help.potato.flavour2=(may or may not produce crater)
 help.legacy=Right-click to update
 help.cantgoto=Something is preventing you from going there
 help.cantleave=Something is preventing you from leaving here
 
 bookcloner.name=Warp Book Cloner
-
-death.attack.potato=%1$s was fried with tuberous energy

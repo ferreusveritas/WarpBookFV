@@ -7,7 +7,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 
 import com.panicnot42.warpbook.WarpBookMod;
-import com.panicnot42.warpbook.item.WarpBookItem;
 import com.panicnot42.warpbook.util.net.NetUtils;
 
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
@@ -26,14 +25,6 @@ public class PacketWarp implements IMessage, IMessageHandler<PacketWarp, IMessag
 	
 	public static ItemStack getPageById(EntityPlayer player, int pageSlot) {
 		try {
-			if (WarpBookMod.fuelEnabled) {
-				if (WarpBookItem.getFuelLeft(WarpBookMod.lastHeldBooks.get(player)) > 0) {
-					WarpBookItem.decrFuelLeft(WarpBookMod.lastHeldBooks.get(player));
-				}
-				else {
-					return ItemStack.EMPTY;
-				}
-			}
 			NBTTagList stack = WarpBookMod.lastHeldBooks.get(player).getTagCompound().getTagList("WarpPages", Constants.NBT.TAG_COMPOUND);
 			ItemStack page = new ItemStack(stack.getCompoundTagAt(pageSlot));
 			return page;

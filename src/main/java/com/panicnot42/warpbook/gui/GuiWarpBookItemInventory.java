@@ -15,7 +15,6 @@ import net.minecraft.util.ResourceLocation;
 public class GuiWarpBookItemInventory extends GuiContainer {
 	private static final ResourceLocation iconLocation = new ResourceLocation("warpbook", "textures/gui/warpinv.png");
 	private static final ResourceLocation deathBox = new ResourceLocation("warpbook", "textures/gui/deathbox.png");
-	private static final ResourceLocation pearlBox = new ResourceLocation("warpbook", "textures/gui/pearlbox.png");
 	
 	private final InventoryWarpBook inventory;
 	
@@ -47,10 +46,6 @@ public class GuiWarpBookItemInventory extends GuiContainer {
 		drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
 		if (WarpBookMod.deathPagesEnabled) {
 			mc.getTextureManager().bindTexture(deathBox);
-			drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
-		}
-		if (WarpBookMod.fuelEnabled) {
-			mc.getTextureManager().bindTexture(pearlBox);
 			drawTexturedModalRect(k, l, 0, 0, xSize, ySize);
 		}
 	}

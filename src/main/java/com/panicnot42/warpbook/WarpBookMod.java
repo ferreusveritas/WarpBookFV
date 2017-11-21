@@ -11,12 +11,12 @@ import com.panicnot42.warpbook.commands.GiveWarpCommand;
 import com.panicnot42.warpbook.commands.ListWaypointCommand;
 import com.panicnot42.warpbook.core.WarpDrive;
 import com.panicnot42.warpbook.gui.GuiManager;
-import com.panicnot42.warpbook.item.BoundWarpPageItem;
 import com.panicnot42.warpbook.item.WarpBookItem;
 import com.panicnot42.warpbook.net.packet.PacketEffect;
 import com.panicnot42.warpbook.net.packet.PacketSyncWaypoints;
 import com.panicnot42.warpbook.net.packet.PacketWarp;
 import com.panicnot42.warpbook.net.packet.PacketWaypointName;
+import com.panicnot42.warpbook.util.WarpUtils;
 import com.panicnot42.warpbook.util.Waypoint;
 
 import net.minecraft.block.Block;
@@ -68,7 +68,6 @@ public class WarpBookMod {
 	
 	public static float exhaustionCoefficient;
 	public static boolean deathPagesEnabled = true;
-	public static boolean fuelEnabled = false;
 	public static Integer[] disabledDestinations;
 	public static Integer[] disabledLeaving;
 	
@@ -97,7 +96,6 @@ public class WarpBookMod {
 		
 		exhaustionCoefficient = (float)config.get("tweaks", "exhaustion_coefficient", 0.0f).getDouble(10.0);
 		deathPagesEnabled = config.get("features", "death_pages", true).getBoolean(true);
-		fuelEnabled = config.get("features", "fuel", false).getBoolean(false);
 		int[] disabledDestinationsP = config.get("features", "disabled_destination_dimensions", new int[] {}).getIntList();
 		int[] disabledLeavingP = config.get("features", "disabled_departing_dimensions", new int[] {}).getIntList();
 		disabledDestinations = new Integer[disabledDestinationsP.length];
@@ -167,7 +165,7 @@ public class WarpBookMod {
 			if (death != null) {
 				s.clearLastDeath(event.player.getGameProfile().getId());
 				ItemStack page = new ItemStack(items.boundWarpPageItem, 1);
-				BoundWarpPageItem.Bind(page, death.x, death.y, death.z, death.dim);
+				WarpUtils.Bind(page, death.x, death.y, death.z, death.dim);
 				event.player.world.spawnEntity(new EntityItem(event.player.world, event.player.posX, event.player.posY, event.player.posZ, page));
 				s.save(event.player.world);
 			}

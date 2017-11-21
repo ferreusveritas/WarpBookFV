@@ -33,10 +33,12 @@ public class WarpWorldStorage extends WorldSavedData {
 	
 	public WarpWorldStorage(String identifier) {
 		super(identifier);
-		if (table == null)
+		if (table == null) {
 			table = new HashMap<String, Waypoint>();
-		if (deaths == null)
+		}
+		if (deaths == null) {
 			deaths = new HashMap<UUID, Waypoint>();
+		}
 	}
 	
 	public static WarpWorldStorage get(World world) {

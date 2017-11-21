@@ -32,8 +32,12 @@ public class CreateWaypointCommand extends CommandBase {
 		}
 		WarpWorldStorage storage = WarpWorldStorage.get(sender.getEntityWorld());
 		try {
-			Waypoint wp = new Waypoint(CommandUtils.stringConcat(args, 5), args[0], 0, 0, 0, 0);//TODO CommandBase.parseInt(var1, var2[1]), CommandBase.parseInt(var1, var2[2]), CommandBase.parseInt(var1, var2[3]),
-			// CommandBase.parseInt(var1, var2[4]));
+			String friendlyName = CommandUtils.stringConcat(args, 5);
+			int x = CommandBase.parseInt(args[1]);
+			int y = CommandBase.parseInt(args[2]);
+			int z = CommandBase.parseInt(args[3]);
+			int dim = CommandBase.parseInt(args[4]);
+			Waypoint wp = new Waypoint(friendlyName, args[0], x, y, z, dim);
 			storage.addWaypoint(wp);
 			CommandUtils.info(sender, I18n.translateToLocal("help.waypointcreated").trim());
 		}

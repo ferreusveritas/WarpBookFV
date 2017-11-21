@@ -1,12 +1,12 @@
 package com.panicnot42.warpbook.client;
 
-import com.panicnot42.warpbook.Properties;
 import com.panicnot42.warpbook.Proxy;
 import com.panicnot42.warpbook.WarpBookMod;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -15,23 +15,37 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ClientProxy extends Proxy {
 	@Override
 	public void registerRenderers() {
-		ItemModelMesher m = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
 		
-		m.register(WarpBookMod.items.unboundWarpPageItem, 0, new ModelResourceLocation(Properties.modid + ":unboundwarppage", "inventory"));
-		m.register(WarpBookMod.items.boundWarpPageItem, 0, new ModelResourceLocation(Properties.modid + ":boundwarppage", "inventory"));
-		m.register(WarpBookMod.items.hyperWarpPageItem, 0, new ModelResourceLocation(Properties.modid + ":hyperwarppage", "inventory"));
-		m.register(WarpBookMod.items.deathlyWarpPageItem, 0, new ModelResourceLocation(Properties.modid + ":deathlywarppage", "inventory"));
-		m.register(WarpBookMod.items.playerWarpPageItem, 0, new ModelResourceLocation(Properties.modid + ":playerwarppage", "inventory"));
-		m.register(WarpBookMod.items.warpBookItem, 0, new ModelResourceLocation(Properties.modid + ":warpbook", "inventory"));
-		m.register(WarpBookMod.items.legacyPageItem, 0, new ModelResourceLocation(Properties.modid + ":warppage", "inventory"));
-		m.register(WarpBookMod.items.legacyPageItem, 1, new ModelResourceLocation(Properties.modid + ":warppage", "inventory"));
-		m.register(WarpBookMod.items.legacyPageItem, 2, new ModelResourceLocation(Properties.modid + ":warppage", "inventory"));
-		m.register(WarpBookMod.items.legacyPageItem, 3, new ModelResourceLocation(Properties.modid + ":warppage", "inventory"));
-		m.register(WarpBookMod.items.legacyPageItem, 4, new ModelResourceLocation(Properties.modid + ":warppage", "inventory"));
-		m.register(WarpBookMod.items.legacyPageItem, 5, new ModelResourceLocation(Properties.modid + ":warppage", "inventory"));
-		m.register(WarpBookMod.items.warpClusterItem, 0, new ModelResourceLocation(Properties.modid + ":warpcluster", "inventory"));
-
-		m.register(Item.getItemFromBlock(WarpBookMod.blocks.bookCloner), 0, new ModelResourceLocation(Properties.modid + ":bookcloner", "inventory"));
-		m.register(Item.getItemFromBlock(WarpBookMod.blocks.teleporter), 0, new ModelResourceLocation(Properties.modid + ":teleporter", "inventory"));
+		regMesh(WarpBookMod.items.unboundWarpPageItem);
+		regMesh(WarpBookMod.items.boundWarpPageItem);
+		regMesh(WarpBookMod.items.hyperWarpPageItem);
+		regMesh(WarpBookMod.items.deathlyWarpPageItem);
+		regMesh(WarpBookMod.items.playerWarpPageItem);
+		regMesh(WarpBookMod.items.warpBookItem);
+		for(int i = 0; i < 6; i++) {
+			regMesh(WarpBookMod.items.legacyPageItem, i);
+		}
+		regMesh(WarpBookMod.items.warpClusterItem);
+		regMesh(WarpBookMod.items.unboundWarpPotionItem);
+		regMesh(WarpBookMod.items.boundWarpPotionItem);
+		regMesh(WarpBookMod.items.playerWarpPotionItem);
+		
+		regMesh(Item.getItemFromBlock(WarpBookMod.blocks.bookCloner));
+		regMesh(Item.getItemFromBlock(WarpBookMod.blocks.teleporter));
 	}
+	
+	private void regMesh(Item item) {
+		regMesh(item, 0);
+	}
+	
+	private void regMesh(Item item, int meta) {
+		ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
+		mesher.register(item, meta, new ModelResourceLocation(item.getRegistryName(), "inventory"));
+
+		//Register Color Handler for the item.
+		if(item instanceof IItemColor) {
+			Minecraft.getMinecraft().getItemColors().registerItemColorHandler((IItemColor) item, new Item[] {item});
+		}
+	}
+	
 }

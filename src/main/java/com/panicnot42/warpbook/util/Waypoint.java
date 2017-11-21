@@ -1,8 +1,8 @@
 package com.panicnot42.warpbook.util;
 
-import net.minecraft.nbt.NBTTagCompound;
-
 import com.panicnot42.warpbook.util.nbt.INBTSerializable;
+
+import net.minecraft.nbt.NBTTagCompound;
 
 public class Waypoint implements INBTSerializable {
 	public String friendlyName, name;
@@ -40,5 +40,5 @@ public class Waypoint implements INBTSerializable {
 		var1.setInteger("dim", this.dim);
 		var1.setString("name", this.name);
 	}
-	
+
 }

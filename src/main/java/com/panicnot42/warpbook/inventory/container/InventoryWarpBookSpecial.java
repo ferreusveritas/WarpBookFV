@@ -1,34 +1,32 @@
 package com.panicnot42.warpbook.inventory.container;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemEnderPearl;
 import net.minecraft.item.ItemStack;
 
 import com.panicnot42.warpbook.WarpBookMod;
 import com.panicnot42.warpbook.item.WarpBookItem;
-import com.panicnot42.warpbook.item.WarpPageItem;
+import com.panicnot42.warpbook.item.LegacyWarpPageItem;
 import net.minecraft.util.text.ITextComponent;
 
 public class InventoryWarpBookSpecial implements IInventory {
-	ItemStack fuel, deathly, heldItem;
+	ItemStack deathly, heldItem;
 	
 	public InventoryWarpBookSpecial(ItemStack heldItem) {
-		int deaths = WarpBookItem.getRespawnsLeft(heldItem), damage = WarpBookItem.getFuelLeft(heldItem);
-		fuel = damage == 0 ? ItemStack.EMPTY : new ItemStack(Items.ENDER_PEARL, damage);
+		int deaths = WarpBookItem.getRespawnsLeft(heldItem); 
 		deathly = deaths == 0 ? ItemStack.EMPTY : new ItemStack(WarpBookMod.items.deathlyWarpPageItem, deaths);
 		this.heldItem = heldItem;
 	}
 	
 	@Override
 	public int getSizeInventory() {
-		return 2;
+		return 1;
 	}
 	
 	@Override
 	public ItemStack getStackInSlot(int slot) {
-		return slot == 0 ? fuel : deathly;
+		return slot == 0 ? deathly : ItemStack.EMPTY;
 	}
 	
 	@Override
@@ -56,9 +54,6 @@ public class InventoryWarpBookSpecial implements IInventory {
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack itemStack) {
 		if (slot == 0) {
-			fuel = itemStack;
-		}
-		else {
 			deathly = itemStack;
 		}
 		if (itemStack != null && itemStack.getCount() > getInventoryStackLimit()) {
@@ -74,7 +69,6 @@ public class InventoryWarpBookSpecial implements IInventory {
 	
 	@Override
 	public void markDirty() {
-		WarpBookItem.setFuelLeft(heldItem, fuel == ItemStack.EMPTY ? 0 : fuel.getCount());
 		WarpBookItem.setRespawnsLeft(heldItem, deathly == ItemStack.EMPTY ? 0 : deathly.getCount());
 	}
 	
@@ -95,7 +89,7 @@ public class InventoryWarpBookSpecial implements IInventory {
 	
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack itemStack) {
-		return slot == 0 ? itemStack.getItem() instanceof ItemEnderPearl : itemStack.getItem() instanceof WarpPageItem && itemStack.getItemDamage() == 3;
+		return slot == 0 ? itemStack.getItem() instanceof ItemEnderPearl : itemStack.getItem() instanceof LegacyWarpPageItem && itemStack.getItemDamage() == 3;
 	}
 	
 	@Override
