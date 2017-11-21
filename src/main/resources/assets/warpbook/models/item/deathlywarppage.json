@@ -1,3 +1,6 @@
 {
-    "parent": "warpbook:item/warppagebase"
+	"parent": "warpbook:item/warppagebase",
+	"textures": {
+		"layer1": "warpbook:items/deathsymbol"
+	}
 }

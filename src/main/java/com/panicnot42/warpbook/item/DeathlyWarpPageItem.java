@@ -34,6 +34,6 @@ public class DeathlyWarpPageItem extends Item implements IItemColor {
 	
 	@SideOnly(Side.CLIENT)
 	public int symbolColor() {
-		return 0x00FFFFFF;
+		return 0x00BBBBBB;
 	}
 }

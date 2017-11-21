@@ -6,6 +6,7 @@ import com.panicnot42.warpbook.item.WarpBookItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 public class TileEntityBookCloner extends TileEntity {
 	private ItemStack pages;
@@ -103,8 +104,8 @@ public class TileEntityBookCloner extends TileEntity {
 		return false;
 	}
 	
-	public void buildBook() {
-		setResult(WarpBookItem.copyBook(template));
+	public void buildBook(World world) {
+		setResult(WarpBookItem.copyBook(world, template));
 		markDirty();
 	}
 	

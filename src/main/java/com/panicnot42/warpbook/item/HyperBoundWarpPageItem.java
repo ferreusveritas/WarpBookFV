@@ -21,8 +21,9 @@ public class HyperBoundWarpPageItem extends WarpPageItem {
 	
 	@Override
 	public String GetName(World world, ItemStack stack) {
-		WarpWorldStorage storage = WarpWorldStorage.get(world);
-		return storage.getWaypoint(stack.getTagCompound().getString("hypername")).name;
+		//WarpWorldStorage storage = WarpWorldStorage.get(world);
+		return stack.getTagCompound().getString("hypername");
+		//return storage.getWaypoint(stack.getTagCompound().getString("hypername")).name;
 	}
 	
 	@Override

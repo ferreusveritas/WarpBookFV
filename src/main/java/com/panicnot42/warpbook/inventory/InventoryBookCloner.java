@@ -138,11 +138,9 @@ public class InventoryBookCloner implements IInventory {
 		cloner.setResult(inventory[InvSlots.RESULT.getIndex()]);
 		
 		if(cloner.materialsReady()) {
-			//System.out.println("Materials ready");
-			cloner.buildBook();
+			cloner.buildBook(cloner.getWorld());
 			inventory[InvSlots.RESULT.getIndex()] = cloner.getResult();
 		} else {
-			//System.out.println("Materials NOT ready");
 			cloner.setResult(ItemStack.EMPTY);
 			inventory[InvSlots.RESULT.getIndex()] = ItemStack.EMPTY;
 		}

@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public interface IDeclareWarp {
+  /** Used by the warpbook for generating it's listing */
   String GetName(World world, ItemStack stack);
   Waypoint GetWaypoint(EntityPlayer player, ItemStack stack);
   

@@ -118,6 +118,17 @@ public class Crafting {
 			).setRegistryName(Properties.modid, "boundWarpPageFromCopy")
 		);
 		
+		//Recipe to copy hyper warp page to an unbound page
+		registry.register(
+			new WarpPageShapeless(
+				new ItemStack(WarpBookMod.items.hyperWarpPageItem, 2),//Output
+				NonNullList.from(null,
+					Ingredient.fromStacks(new ItemStack(WarpBookMod.items.hyperWarpPageItem, 1)),
+					Ingredient.fromStacks(new ItemStack(WarpBookMod.items.unboundWarpPageItem, 1))
+				)
+			).setRegistryName(Properties.modid, "boundWarpPageFromCopy")
+		);
+		
 		//Recipe to apply bound potion to an unbound page
 		registry.register(
 			new WarpPageShapeless(

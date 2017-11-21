@@ -99,20 +99,35 @@ public class WarpBookItem extends Item {
 		return count;
 	}
 	
-	public static ItemStack copyBook(ItemStack book) {
+	public static ItemStack copyBook(World world, ItemStack book) {
+		
 		ItemStack stack = new ItemStack(WarpBookMod.items.warpBookItem, 1);
 		NBTTagList pages = book.getTagCompound().getTagList("WarpPages", Constants.NBT.TAG_COMPOUND);
 		NBTTagList destPages = new NBTTagList();
 		for (int i = 0; i < pages.tagCount(); ++i) {
-			ItemStack item = new ItemStack(pages.getCompoundTagAt(i));
+			NBTTagCompound page = pages.getCompoundTagAt(i);
+			int slot = page.getInteger("Slot");
+			ItemStack item = new ItemStack(page);
 			if (item.getItem() instanceof IDeclareWarp && ((IDeclareWarp)item.getItem()).isWarpCloneable(item)) {
 				NBTTagCompound tag = new NBTTagCompound();
 				item.writeToNBT(tag);
+				tag.setInteger("Slot", slot);
 				destPages.appendTag(tag);
 			}
 		}
 		stack.setTagCompound(new NBTTagCompound());
 		stack.getTagCompound().setTag("WarpPages", destPages);
+
+		
+		
+		if(!world.isRemote) {
+	
+		System.out.println("========================================================");
+		System.out.println(book.getTagCompound());
+		System.out.println(stack.getTagCompound());
+		
+		}
+		
 		return stack;
 	}
 	

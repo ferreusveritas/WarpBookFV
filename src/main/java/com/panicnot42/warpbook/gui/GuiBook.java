@@ -113,11 +113,9 @@ public class GuiBook extends GuiScreen {
 		int r = pos.size() - page * warpsPerPage;
 		int n = Math.min(r, warpsPerPage);
 		
-		for (int i = 0; i < warpsPerPage; i++) {
-			WarpButton warp = warps.get(i);
-			if(warp != null) {
-				warp.visible = false;
-			}
+		//Hide all of the warp buttons
+		for(WarpButton wb : warps) {
+			wb.visible = false;
 		}
 		
 		for (int i = 0; i < n; i++) {
