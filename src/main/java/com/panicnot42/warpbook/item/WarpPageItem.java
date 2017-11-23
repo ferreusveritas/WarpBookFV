@@ -17,6 +17,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WarpPageItem extends Item implements IDeclareWarp, IItemColor {
 
+	public static final String unbound = "§4§kUnbound";
+	public static final String ttprefix = "§a";
+	
 	public WarpPageItem(String name) {
 		setUnlocalizedName(name);
 		setRegistryName(name);
@@ -29,12 +32,12 @@ public class WarpPageItem extends Item implements IDeclareWarp, IItemColor {
 	}
 	
 	@Override
-	public String GetName(World world, ItemStack stack) {
-		return null;
+	public String getName(World world, ItemStack stack) {
+		return null;//Potions can't be used in book so this isn't needed.
 	}
 	
 	@Override
-	public Waypoint GetWaypoint(EntityPlayer player, ItemStack stack) {
+	public Waypoint getWaypoint(EntityPlayer player, ItemStack stack) {
 		return null;
 	}
 	

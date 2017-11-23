@@ -1,12 +1,18 @@
 package com.panicnot42.warpbook;
 
+import com.panicnot42.warpbook.crafting.WarpBookColorShapeless;
 import com.panicnot42.warpbook.crafting.WarpPageShapeless;
+import com.panicnot42.warpbook.item.WarpPageItem;
+import com.panicnot42.warpbook.item.WarpPotionItem;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.NonNullList;
@@ -22,6 +28,7 @@ public class Crafting {
 	public void register(IForgeRegistry<IRecipe> registry) {
 		
 		RecipeSorter.register("warpbook:shapeless_page", WarpPageShapeless.class, Category.SHAPELESS, "after:minecraft:shapeless");
+		RecipeSorter.register("warpbook:shapeless_dyewarpbook", WarpBookColorShapeless.class, Category.SHAPELESS, "after:minecraft:shapeless");
 		
 		PotionType awkward = PotionType.REGISTRY.getObject(new ResourceLocation("awkward"));
 		
@@ -108,71 +115,89 @@ public class Crafting {
 		);
 		
 		//Recipe to copy bound warp page to an unbound page
-		registry.register(
-			new WarpPageShapeless(
-				new ItemStack(WarpBookMod.items.boundWarpPageItem, 2),//Output
-				NonNullList.from(null,
-					Ingredient.fromStacks(new ItemStack(WarpBookMod.items.boundWarpPageItem, 1)),
-					Ingredient.fromStacks(new ItemStack(WarpBookMod.items.unboundWarpPageItem, 1))
-				)
-			).setRegistryName(Properties.modid, "boundWarpPageFromCopy")
-		);
+		copyPageToUnboundPage(registry, WarpBookMod.items.locusWarpPageItem);
 		
 		//Recipe to copy hyper warp page to an unbound page
-		registry.register(
-			new WarpPageShapeless(
-				new ItemStack(WarpBookMod.items.hyperWarpPageItem, 2),//Output
-				NonNullList.from(null,
-					Ingredient.fromStacks(new ItemStack(WarpBookMod.items.hyperWarpPageItem, 1)),
-					Ingredient.fromStacks(new ItemStack(WarpBookMod.items.unboundWarpPageItem, 1))
-				)
-			).setRegistryName(Properties.modid, "boundWarpPageFromCopy")
-		);
+		copyPageToUnboundPage(registry, WarpBookMod.items.hyperWarpPageItem);
+
+		//Recipe to apply locus potion to an unbound page or plain paper
+		potionToPaper(registry, WarpBookMod.items.locusWarpPotionItem, WarpBookMod.items.locusWarpPageItem);
 		
-		//Recipe to apply bound potion to an unbound page
-		registry.register(
-			new WarpPageShapeless(
-				new ItemStack(WarpBookMod.items.boundWarpPageItem),//Output
-				NonNullList.from(null,
-					Ingredient.fromStacks(new ItemStack(WarpBookMod.items.boundWarpPotionItem)),
-					Ingredient.fromStacks(new ItemStack(WarpBookMod.items.unboundWarpPageItem))
-				)
-			).setRegistryName(Properties.modid, "boundWarpPageFromBoundPotion")
-		);
+		//Recipe to apply player potion to an unbound page or plain paper
+		potionToPaper(registry, WarpBookMod.items.playerWarpPotionItem, WarpBookMod.items.playerWarpPageItem);
 		
-		//Recipe to apply bound potion to plain paper
-		registry.register(
-			new WarpPageShapeless(
-				new ItemStack(WarpBookMod.items.boundWarpPageItem),//Output
-				NonNullList.from(null,
-					Ingredient.fromStacks(new ItemStack(WarpBookMod.items.boundWarpPotionItem)),
-					Ingredient.fromStacks(new ItemStack(Items.PAPER))
-				)
-			).setRegistryName(Properties.modid, "boundWarpPageFromBoundPotionAndPaper")
-		);
+		//Recipe to apply hyper potion to an unbound page or plain paper
+		potionToPaper(registry, WarpBookMod.items.hyperWarpPotionItem, WarpBookMod.items.hyperWarpPageItem);
 		
-		//Recipe to apply player potion to an unbound page
+		//Recipe to color a warp book cover
+		for(int dye = 0; dye < 16; dye++) {
+			ItemStack dyedBook = new ItemStack(WarpBookMod.items.warpBookItem);
+			NBTTagCompound tag = new NBTTagCompound();
+			tag.setInteger("color", EnumDyeColor.byDyeDamage(dye).getColorValue());
+			dyedBook.setTagCompound(tag);
+			registry.register(
+				new WarpBookColorShapeless(
+					dyedBook,//Output
+					NonNullList.from(null,
+						Ingredient.fromStacks(new ItemStack(WarpBookMod.items.warpBookItem)),
+						Ingredient.fromStacks(new ItemStack(Items.DYE, 1, dye))
+					)
+				).setRegistryName(Properties.modid, "dyeWarpBook_" + dye)
+			);
+		}
+
+		//Recipe to clear the color from a warp book cover
+		ItemStack dyedBook = new ItemStack(WarpBookMod.items.warpBookItem);
+		NBTTagCompound tag = new NBTTagCompound();
+		//We'll set the washing example to purple(5) because it's pretty ugly and full of regret. ;)
+		tag.setInteger("color", EnumDyeColor.byDyeDamage(5).getColorValue());
+		dyedBook.setTagCompound(tag);
 		registry.register(
-			new WarpPageShapeless(
-				new ItemStack(WarpBookMod.items.playerWarpPageItem),//Output
+			new WarpBookColorShapeless(
+					new ItemStack(WarpBookMod.items.warpBookItem),//Output
 				NonNullList.from(null,
-					Ingredient.fromStacks(new ItemStack(WarpBookMod.items.playerWarpPotionItem)),
-					Ingredient.fromStacks(new ItemStack(WarpBookMod.items.unboundWarpPageItem))
+					Ingredient.fromStacks(dyedBook),
+					Ingredient.fromStacks(new ItemStack(Items.WATER_BUCKET))
 				)
-			).setRegistryName(Properties.modid, "playerWarpPageFromPlayerPotion")
-		);
-		
-		//Recipe to apply player potion to plain paper
-		registry.register(
-			new WarpPageShapeless(
-				new ItemStack(WarpBookMod.items.playerWarpPageItem),//Output
-				NonNullList.from(null,
-					Ingredient.fromStacks(new ItemStack(WarpBookMod.items.playerWarpPotionItem)),
-					Ingredient.fromStacks(new ItemStack(Items.PAPER))
-				)
-			).setRegistryName(Properties.modid, "playerWarpPageFromPlayerPotionAndPaper")
+			).setRegistryName(Properties.modid, "dyeWarpBook_X")
 		);
 		
 	}
 	
+	private void potionToPaper(IForgeRegistry<IRecipe> registry, WarpPotionItem potionIn, WarpPageItem pageOut) {
+
+		for(Item paper : new Item[]{Items.PAPER, WarpBookMod.items.unboundWarpPageItem}) {
+			String recipeName = upperFirst(pageOut.getRegistryName().getResourcePath()) + 
+			"From" + upperFirst(potionIn.getRegistryName().getResourcePath()) + 
+			"And" + upperFirst(paper.getRegistryName().getResourcePath());
+			
+			registry.register(
+				new WarpPageShapeless(
+					new ItemStack(pageOut),//Output
+					NonNullList.from(null,
+							Ingredient.fromStacks(new ItemStack(potionIn)),
+							Ingredient.fromStacks(new ItemStack(paper))
+							)
+					).setRegistryName(Properties.modid, recipeName)
+			);
+		}
+	}
+	
+	private void copyPageToUnboundPage(IForgeRegistry<IRecipe> registry, WarpPageItem page) {
+		String recipeName = upperFirst(page.getRegistryName().getResourcePath()) + "FromCopy";
+		
+		registry.register(
+				new WarpPageShapeless(
+					new ItemStack(page, 2),//Output
+					NonNullList.from(null,
+						Ingredient.fromStacks(new ItemStack(page, 1)),
+						Ingredient.fromStacks(new ItemStack(WarpBookMod.items.unboundWarpPageItem, 1))
+					)
+				).setRegistryName(Properties.modid, recipeName)
+			);
+	}
+	
+	private String upperFirst(String stringIn) {
+		return stringIn.substring(0,1).toUpperCase() + stringIn.substring(1);
+	}
 }

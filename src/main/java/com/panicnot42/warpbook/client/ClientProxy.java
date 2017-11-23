@@ -15,20 +15,25 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ClientProxy extends Proxy {
 	@Override
 	public void registerRenderers() {
-		
+		//Misc
+		regMesh(WarpBookMod.items.warpBookItem);
+		regMesh(WarpBookMod.items.warpClusterItem);
+
+		//Pages
 		regMesh(WarpBookMod.items.unboundWarpPageItem);
-		regMesh(WarpBookMod.items.boundWarpPageItem);
+		regMesh(WarpBookMod.items.locusWarpPageItem);
+		regMesh(WarpBookMod.items.playerWarpPageItem);
 		regMesh(WarpBookMod.items.hyperWarpPageItem);
 		regMesh(WarpBookMod.items.deathlyWarpPageItem);
-		regMesh(WarpBookMod.items.playerWarpPageItem);
-		regMesh(WarpBookMod.items.warpBookItem);
 		for(int i = 0; i < 6; i++) {
 			regMesh(WarpBookMod.items.legacyPageItem, i);
 		}
-		regMesh(WarpBookMod.items.warpClusterItem);
+
+		//Potions
 		regMesh(WarpBookMod.items.unboundWarpPotionItem);
-		regMesh(WarpBookMod.items.boundWarpPotionItem);
+		regMesh(WarpBookMod.items.locusWarpPotionItem);
 		regMesh(WarpBookMod.items.playerWarpPotionItem);
+		regMesh(WarpBookMod.items.hyperWarpPotionItem);		
 		
 		regMesh(Item.getItemFromBlock(WarpBookMod.blocks.bookCloner));
 		regMesh(Item.getItemFromBlock(WarpBookMod.blocks.teleporter));

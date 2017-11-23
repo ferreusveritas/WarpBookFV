@@ -29,18 +29,18 @@ public class UnboundWarpPageItem extends WarpPageItem {
 			stack = WarpUtils.bindItemStackToPlayer(new ItemStack(WarpBookMod.items.playerWarpPageItem, stack.getCount()), player);
 		}
 		else {
-			WarpUtils.bindItemStackToLocation(new ItemStack(WarpBookMod.items.boundWarpPageItem), world, player);
+			WarpUtils.bindItemStackToLocation(new ItemStack(WarpBookMod.items.locusWarpPageItem), world, player);
 		}
 		
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 	}
 	
-	public String GetName(World world, ItemStack stack) {
+	public String getName(World world, ItemStack stack) {
 		return null;
 	}
 	
 	@Override
-	public Waypoint GetWaypoint(EntityPlayer player, ItemStack stack) {
+	public Waypoint getWaypoint(EntityPlayer player, ItemStack stack) {
 		return null;
 	}
 	

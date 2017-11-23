@@ -13,44 +13,41 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class HyperBoundWarpPageItem extends WarpPageItem {
+public class HyperWarpPageItem extends WarpPageItem {
 
-	public HyperBoundWarpPageItem(String name) {
+	public HyperWarpPageItem(String name) {
 		super(name);
 	}
 	
 	@Override
-	public String GetName(World world, ItemStack stack) {
-		//WarpWorldStorage storage = WarpWorldStorage.get(world);
-		return stack.getTagCompound().getString("hypername");
-		//return storage.getWaypoint(stack.getTagCompound().getString("hypername")).name;
+	public String getName(World world, ItemStack stack) {
+		if (hasValidData(stack)) {
+			String name = stack.getTagCompound().getString("hypername");
+			if(name != null) {
+				return name;
+			}
+		}
+		return unbound;
 	}
 	
 	@Override
-	public Waypoint GetWaypoint(EntityPlayer player, ItemStack stack) {
-		WarpWorldStorage storage = WarpWorldStorage.get(player.getEntityWorld());
-		return storage.getWaypoint(stack.getTagCompound().getString("hypername"));
+	public Waypoint getWaypoint(EntityPlayer player, ItemStack stack) {
+		if(hasValidData(stack)) {
+			WarpWorldStorage storage = WarpWorldStorage.get(player.getEntityWorld());
+			return storage.getWaypoint(stack.getTagCompound().getString("hypername"));
+		}
+		return null;
 	}
 		
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flagIn) {
-		if (stack.hasTagCompound()) {
-			String name = stack.getTagCompound().getString("hypername");
-			if(name != null) {
-				tooltip.add(name);
-				//This will never work since the waypoint information is stored on the server and this is client side only.
-				Waypoint wp = WarpWorldStorage.get(world).getWaypoint(name);
-				if(wp != null && wp.friendlyName != null) {
-					tooltip.add(wp.friendlyName);
-				}
-			}
-		}
+		tooltip.add(ttprefix + getName(world, stack));
 	}
 	
 	@Override
 	public boolean hasValidData(ItemStack stack) {
-		return stack.getTagCompound().hasKey("hypername");
+		return stack.hasTagCompound() && stack.getTagCompound().hasKey("hypername");
 	}
 	
 	@Override

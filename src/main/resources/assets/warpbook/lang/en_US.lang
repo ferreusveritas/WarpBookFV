@@ -9,6 +9,7 @@ item.unboundwarppotion.name=Unbound Warp Potion
 item.boundwarppotion.name=Bound Warp Potion
 item.warpcluster.name=Warp Cluster
 item.playerwarppotion.name=Player Warp Potion
+item.hyperwarppotion.name=Hyper Warp Potion
 
 itemGroup.tabWarpBook=Warp Book
 

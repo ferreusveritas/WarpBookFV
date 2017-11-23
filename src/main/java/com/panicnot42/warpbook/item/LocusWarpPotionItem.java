@@ -13,25 +13,28 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BoundWarpPotionItem extends WarpPotionItem {
+public class LocusWarpPotionItem extends WarpPotionItem {
 	
 	public static final String name = "boundwarppotion";
 	
-	public BoundWarpPotionItem() {
+	public LocusWarpPotionItem() {
 		this(name);
 	}
 	
-	public BoundWarpPotionItem(String name) {
+	public LocusWarpPotionItem(String name) {
 		super(name);
 	}
 	
 	@Override
-	public String GetName(World world, ItemStack stack) {
-		return stack.getTagCompound().getString("name");
+	public String getName(World world, ItemStack stack) {
+		if(stack.hasTagCompound() && stack.getTagCompound().hasKey("name")) {
+			return stack.getTagCompound().getString("name");
+		}
+		return unbound;
 	}
 	
 	@Override
-	public Waypoint GetWaypoint(EntityPlayer player, ItemStack stack) {
+	public Waypoint getWaypoint(EntityPlayer player, ItemStack stack) {
 		if(hasValidData(stack) ) {
 			return new Waypoint("", "",
 				stack.getTagCompound().getInteger("posX"),
@@ -54,10 +57,10 @@ public class BoundWarpPotionItem extends WarpPotionItem {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(ttprefix + getName(world, stack));
 		if(hasValidData(stack)) {
 			try {
-				tooltip.add(stack.getTagCompound().getString("name"));
 				tooltip.add(I18n.format("warpbook.bindmsg",
 					stack.getTagCompound().getInteger("posX"),
 					stack.getTagCompound().getInteger("posY"),

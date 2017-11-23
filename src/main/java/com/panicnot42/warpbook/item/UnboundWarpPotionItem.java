@@ -29,7 +29,7 @@ public class UnboundWarpPotionItem extends WarpPotionItem {
 			stack = WarpUtils.bindItemStackToPlayer(new ItemStack(WarpBookMod.items.playerWarpPotionItem, stack.getCount()), player);
 		}
 		else {
-			WarpUtils.bindItemStackToLocation(new ItemStack(WarpBookMod.items.boundWarpPotionItem), world, player);
+			WarpUtils.bindItemStackToLocation(new ItemStack(WarpBookMod.items.locusWarpPotionItem), world, player);
 		}
 		
 		return stack;

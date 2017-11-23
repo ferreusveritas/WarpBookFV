@@ -25,12 +25,18 @@ public class PlayerWarpPageItem extends WarpPageItem implements IDeclareWarp {
 	}
 	
 	@Override
-	public String GetName(World world, ItemStack stack) {
-		return stack.getTagCompound().getString("player");
+	public String getName(World world, ItemStack stack) {
+		if (hasValidData(stack)) {
+			String name = stack.getTagCompound().getString("player");
+			if(name != null) {
+				return name;
+			}
+		}
+		return unbound;
 	}
 	
 	@Override
-	public Waypoint GetWaypoint(EntityPlayer player, ItemStack stack) {
+	public Waypoint getWaypoint(EntityPlayer player, ItemStack stack) {
 		if (player.world.isRemote) {
 			return null;
 		}
@@ -55,14 +61,12 @@ public class PlayerWarpPageItem extends WarpPageItem implements IDeclareWarp {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flagIn) {
-		if (stack.hasTagCompound()) {
-			tooltip.add(GetName(world, stack));
-		}
+		tooltip.add(ttprefix + getName(world, stack));
 	}
 	
 	@Override
 	public boolean hasValidData(ItemStack stack) {
-		return stack.getTagCompound().hasKey("playeruuid");
+		return stack.hasTagCompound() && stack.getTagCompound().hasKey("playeruuid");
 	}
 	
 	@Override

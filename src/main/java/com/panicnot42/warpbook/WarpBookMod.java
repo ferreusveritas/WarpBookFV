@@ -164,7 +164,7 @@ public class WarpBookMod {
 			Waypoint death = s.getLastDeath(event.player.getGameProfile().getId());
 			if (death != null) {
 				s.clearLastDeath(event.player.getGameProfile().getId());
-				ItemStack page = new ItemStack(items.boundWarpPageItem, 1);
+				ItemStack page = new ItemStack(items.locusWarpPageItem, 1);
 				WarpUtils.Bind(page, death.x, death.y, death.z, death.dim);
 				event.player.world.spawnEntity(new EntityItem(event.player.world, event.player.posX, event.player.posY, event.player.posZ, page));
 				s.save(event.player.world);

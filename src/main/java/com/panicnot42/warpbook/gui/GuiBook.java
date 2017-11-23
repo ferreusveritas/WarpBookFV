@@ -73,7 +73,7 @@ public class GuiBook extends GuiScreen {
 			ItemStack stack = new ItemStack(items.getCompoundTagAt(i));
 			if (stack.getItem() instanceof IDeclareWarp ) {
 				if( ((IDeclareWarp)stack.getItem()).hasValidData(stack)) {
-					pos.add(new ButtonPos(i, ((IDeclareWarp)stack.getItem()).GetName(entityPlayer.getEntityWorld(), stack)));
+					pos.add(new ButtonPos(i, ((IDeclareWarp)stack.getItem()).getName(entityPlayer.getEntityWorld(), stack)));
 				} else {
 					pos.add(new ButtonPos(i, "..."));
 				}

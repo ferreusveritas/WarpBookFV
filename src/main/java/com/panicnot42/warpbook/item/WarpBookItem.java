@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.panicnot42.warpbook.WarpBookMod;
 import com.panicnot42.warpbook.core.IDeclareWarp;
+import com.panicnot42.warpbook.core.WarpColors;
 
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,7 +22,7 @@ import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class WarpBookItem extends Item {
+public class WarpBookItem extends Item implements IItemColor {
 	public WarpBookItem(String name) {
 		setUnlocalizedName(name);
 		setRegistryName(name);
@@ -117,18 +119,23 @@ public class WarpBookItem extends Item {
 		}
 		stack.setTagCompound(new NBTTagCompound());
 		stack.getTagCompound().setTag("WarpPages", destPages);
-
-		
-		
-		if(!world.isRemote) {
-	
-		System.out.println("========================================================");
-		System.out.println(book.getTagCompound());
-		System.out.println(stack.getTagCompound());
-		
-		}
 		
 		return stack;
+	}
+
+	@Override
+	public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+		
+		switch(tintIndex) {
+			case 0: {
+				if(stack.hasTagCompound() && stack.getTagCompound().hasKey("color")) {
+					return stack.getTagCompound().getInteger("color");
+				}
+				return WarpColors.LEATHER.getColor();//Leather
+			}
+			case 1: return WarpColors.UNBOUND.getColor();//The pages
+			default: return 0xFFFFFFFF;//The ender pearl
+		}
 	}
 	
 }

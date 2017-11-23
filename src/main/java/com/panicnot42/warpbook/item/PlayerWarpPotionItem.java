@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class PlayerWarpPotionItem extends WarpPotionItem {
 
-	public static final String name = "playerwarppotion"; 
+	public static final String name = "playerwarppotion";
 
 	public PlayerWarpPotionItem() {
 		this(name);
@@ -30,16 +30,18 @@ public class PlayerWarpPotionItem extends WarpPotionItem {
 	}
 
 	@Override
-	public String GetName(World world, ItemStack stack) {
-		if(stack.hasTagCompound() && stack.getTagCompound().hasKey("player")) {
-			return stack.getTagCompound().getString("player");
-		} else {
-			return "No Data";
+	public String getName(World world, ItemStack stack) {
+		if (hasValidData(stack)) {
+			String name = stack.getTagCompound().getString("player");
+			if(name != null) {
+				return name;
+			}
 		}
+		return unbound;
 	}
 	
 	@Override
-	public Waypoint GetWaypoint(EntityPlayer player, ItemStack stack) {
+	public Waypoint getWaypoint(EntityPlayer player, ItemStack stack) {
 
 		if (!player.world.isRemote) {
 			if(hasValidData(stack)) {
@@ -78,9 +80,7 @@ public class PlayerWarpPotionItem extends WarpPotionItem {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
-		if(hasValidData(stack)) {
-			tooltip.add(GetName(world, stack));
-		}
+		tooltip.add(ttprefix + getName(world, stack));
 	}
 	
 	@Override

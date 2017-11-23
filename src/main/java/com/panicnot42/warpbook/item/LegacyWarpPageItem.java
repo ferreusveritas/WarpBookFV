@@ -36,7 +36,7 @@ public class LegacyWarpPageItem extends WarpPageItem {
 				newStack = new ItemStack(WarpBookMod.items.unboundWarpPageItem, itemStack.getCount());
 				break;
 			case 1:
-				newStack = new ItemStack(WarpBookMod.items.boundWarpPageItem, itemStack.getCount());
+				newStack = new ItemStack(WarpBookMod.items.locusWarpPageItem, itemStack.getCount());
 				break;
 			case 2:
 				newStack = new ItemStack(WarpBookMod.items.hyperWarpPageItem, itemStack.getCount());

@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 public class WarpDrive {
 	public void handleWarp(EntityPlayer player, ItemStack warpItem)	{
 		if (warpItem.getItem() instanceof IDeclareWarp && !player.world.isRemote) {
-			Waypoint wp = ((IDeclareWarp)warpItem.getItem()).GetWaypoint(player, warpItem);
+			Waypoint wp = ((IDeclareWarp)warpItem.getItem()).getWaypoint(player, warpItem);
 			if (wp == null) {// TODO only for type 5
 				if (player.world.isRemote) {
 					CommandUtils.showError(player, I18n.format("help.waypointnotexist"));
@@ -54,7 +54,7 @@ public class WarpDrive {
 			if (crossDim && !player.world.isRemote) { 
 				transferPlayerToDimension((EntityPlayerMP)player, wp.dim, ((EntityPlayerMP)player).mcServer.getPlayerList());
 			}
-			player.setPositionAndUpdate(wp.x - 0.5f, wp.y + 0.5f, wp.z - 0.5f);
+			player.setPositionAndUpdate(wp.x + 0.5f, wp.y + 0.5f, wp.z + 0.5f);
 			WarpBookMod.network.sendToAllAround(oldDim, oldPoint);
 			WarpBookMod.network.sendToAllAround(newDim, newPoint);
 		}

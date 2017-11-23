@@ -14,18 +14,21 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BoundWarpPageItem extends WarpPageItem implements IDeclareWarp {
-	public BoundWarpPageItem(String name) {
+public class LocusWarpPageItem extends WarpPageItem implements IDeclareWarp {
+	public LocusWarpPageItem(String name) {
 		super(name);
 	}
 		
 	@Override
-	public String GetName(World world, ItemStack stack) {
-		return stack.getTagCompound().getString("name");
+	public String getName(World world, ItemStack stack) {
+		if(stack.hasTagCompound() && stack.getTagCompound().hasKey("name")) {
+			return stack.getTagCompound().getString("name");
+		}
+		return unbound;
 	}
 	
 	@Override
-	public Waypoint GetWaypoint(EntityPlayer player, ItemStack stack) {
+	public Waypoint getWaypoint(EntityPlayer player, ItemStack stack) {
 		return new Waypoint("", "",
 				stack.getTagCompound().getInteger("posX"),
 				stack.getTagCompound().getInteger("posY"),
@@ -35,9 +38,9 @@ public class BoundWarpPageItem extends WarpPageItem implements IDeclareWarp {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flagIn) {
+		tooltip.add(ttprefix + getName(world, stack));
 		try {
-			tooltip.add(stack.getTagCompound().getString("name"));
 			tooltip.add(I18n.format("warpbook.bindmsg",
 					stack.getTagCompound().getInteger("posX"),
 					stack.getTagCompound().getInteger("posY"),
