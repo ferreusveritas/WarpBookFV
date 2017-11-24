@@ -23,6 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WarpBookItem extends Item implements IItemColor {
+		
 	public WarpBookItem(String name) {
 		setUnlocalizedName(name);
 		setRegistryName(name);
@@ -94,7 +95,7 @@ public class WarpBookItem extends Item implements IItemColor {
 		int count = 0;
 		for (int i = 0; i < items.tagCount(); ++i) {
 			ItemStack item = new ItemStack(items.getCompoundTagAt(i));
-			if (((IDeclareWarp)item.getItem()).isWarpCloneable(item)) {
+			if (((WarpItem)item.getItem()).isWarpCloneable(item)) {
 				count += item.getCount();
 			}
 		}
@@ -110,7 +111,7 @@ public class WarpBookItem extends Item implements IItemColor {
 			NBTTagCompound page = pages.getCompoundTagAt(i);
 			int slot = page.getInteger("Slot");
 			ItemStack item = new ItemStack(page);
-			if (item.getItem() instanceof IDeclareWarp && ((IDeclareWarp)item.getItem()).isWarpCloneable(item)) {
+			if (item.getItem() instanceof IDeclareWarp && ((WarpItem)item.getItem()).isWarpCloneable(item)) {
 				NBTTagCompound tag = new NBTTagCompound();
 				item.writeToNBT(tag);
 				tag.setInteger("Slot", slot);

@@ -3,6 +3,7 @@ package com.panicnot42.warpbook.client;
 import com.panicnot42.warpbook.Proxy;
 import com.panicnot42.warpbook.WarpBookMod;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -37,6 +38,8 @@ public class ClientProxy extends Proxy {
 		
 		regMesh(Item.getItemFromBlock(WarpBookMod.blocks.bookCloner));
 		regMesh(Item.getItemFromBlock(WarpBookMod.blocks.teleporter));
+	
+		Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(WarpBookMod.blocks.teleporter, new Block[] {WarpBookMod.blocks.teleporter});
 	}
 	
 	private void regMesh(Item item) {

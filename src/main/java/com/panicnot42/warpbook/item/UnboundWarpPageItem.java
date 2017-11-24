@@ -1,10 +1,11 @@
 package com.panicnot42.warpbook.item;
 
-import com.panicnot42.warpbook.WarpBookMod;
-import com.panicnot42.warpbook.core.WarpColors;
-import com.panicnot42.warpbook.util.WarpUtils;
-import com.panicnot42.warpbook.util.Waypoint;
+import java.util.List;
 
+import com.panicnot42.warpbook.WarpBookMod;
+import com.panicnot42.warpbook.util.WarpUtils;
+
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -34,35 +35,10 @@ public class UnboundWarpPageItem extends WarpPageItem {
 		
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 	}
-	
-	public String getName(World world, ItemStack stack) {
-		return null;
-	}
-	
-	@Override
-	public Waypoint getWaypoint(EntityPlayer player, ItemStack stack) {
-		return null;
-	}
-	
-	@Override
-	public boolean hasValidData(ItemStack stack) {
-		return false;
-	}
-	
-	@Override
-	public boolean isWarpCloneable(ItemStack stack) {
-		return false;//No information to clone from
-	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
-	public int pageColor() {
-		return WarpColors.UNBOUND.getColor();
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flagIn) {
 	}
 	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int symbolColor() {
-		return 0x00FFFFFF;
-	}
 }

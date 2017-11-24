@@ -1,6 +1,6 @@
 package com.panicnot42.warpbook.crafting;
 
-import com.panicnot42.warpbook.core.IDeclareWarp;
+import com.panicnot42.warpbook.item.WarpItem;
 
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
@@ -23,9 +23,9 @@ public class WarpPageShapeless extends ShapelessRecipes {
 		try {
 			for (int i = 0; i < inventory.getSizeInventory(); ++i) {
 				ItemStack workingStack = inventory.getStackInSlot(i);
-				if (inventory.getStackInSlot(i) != null && workingStack.getItem() instanceof IDeclareWarp) {
-					IDeclareWarp dw = (IDeclareWarp)workingStack.getItem();
-					if(dw.isWarpCloneable(workingStack)) {
+				if (inventory.getStackInSlot(i) != null && workingStack.getItem() instanceof WarpItem) {
+					WarpItem wi = (WarpItem)workingStack.getItem();
+					if(wi.isWarpCloneable(workingStack)) {
 						output.setTagCompound(workingStack.getTagCompound());
 					}
 				}

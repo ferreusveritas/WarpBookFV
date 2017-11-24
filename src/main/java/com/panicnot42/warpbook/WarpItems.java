@@ -1,17 +1,16 @@
 package com.panicnot42.warpbook;
 
-import com.panicnot42.warpbook.item.LocusWarpPageItem;
-import com.panicnot42.warpbook.item.LocusWarpPotionItem;
 import com.panicnot42.warpbook.item.DeathlyWarpPageItem;
-import com.panicnot42.warpbook.item.HyperWarpPageItem;
-import com.panicnot42.warpbook.item.HyperWarpPotionItem;
-import com.panicnot42.warpbook.item.PlayerWarpPageItem;
-import com.panicnot42.warpbook.item.PlayerWarpPotionItem;
+import com.panicnot42.warpbook.item.LegacyWarpPageItem;
 import com.panicnot42.warpbook.item.UnboundWarpPageItem;
 import com.panicnot42.warpbook.item.UnboundWarpPotionItem;
 import com.panicnot42.warpbook.item.WarpBookItem;
 import com.panicnot42.warpbook.item.WarpItem;
-import com.panicnot42.warpbook.item.LegacyWarpPageItem;
+import com.panicnot42.warpbook.item.WarpPageItem;
+import com.panicnot42.warpbook.item.WarpPotionItem;
+import com.panicnot42.warpbook.warps.WarpHyper;
+import com.panicnot42.warpbook.warps.WarpLocus;
+import com.panicnot42.warpbook.warps.WarpPlayer;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -19,45 +18,47 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 public class WarpItems {
 	public WarpBookItem warpBookItem;
-	public PlayerWarpPageItem playerWarpPageItem;
-	public HyperWarpPageItem hyperWarpPageItem;
-	public LocusWarpPageItem locusWarpPageItem;
-	public UnboundWarpPageItem unboundWarpPageItem;
-	public DeathlyWarpPageItem deathlyWarpPageItem;
-	public LegacyWarpPageItem legacyPageItem;
 	public Item warpClusterItem;
-	public UnboundWarpPotionItem unboundWarpPotionItem;
-	public LocusWarpPotionItem locusWarpPotionItem;
-	public PlayerWarpPotionItem playerWarpPotionItem;
-	public HyperWarpPotionItem hyperWarpPotionItem;
-
+	
+	public WarpItem playerWarpPageItem;
+	public WarpItem hyperWarpPageItem;
+	public WarpItem locusWarpPageItem;
+	public WarpItem unboundWarpPageItem;
+	public WarpItem legacyPageItem;
+	public DeathlyWarpPageItem deathlyWarpPageItem;
+	
+	public WarpItem unboundWarpPotionItem;
+	public WarpItem locusWarpPotionItem;
+	public WarpItem playerWarpPotionItem;
+	public WarpItem hyperWarpPotionItem;
+	
 	public WarpItems() {
-
+		
 		//Misc
 		warpBookItem = new WarpBookItem("warpbook");
 		warpClusterItem = new WarpItem("warpcluster");
-
+		
 		//Pages
 		unboundWarpPageItem = new UnboundWarpPageItem("unboundwarppage");
-		locusWarpPageItem = new LocusWarpPageItem("boundwarppage");
-		playerWarpPageItem = new PlayerWarpPageItem("playerwarppage");
-		hyperWarpPageItem = new HyperWarpPageItem("hyperwarppage");
+		locusWarpPageItem = new WarpPageItem("boundwarppage").setWarp(new WarpLocus()).setCloneable(true);
+		playerWarpPageItem = new WarpPageItem("playerwarppage").setWarp(new WarpPlayer()).setCloneable(false);
+		hyperWarpPageItem = new WarpPageItem("hyperwarppage").setWarp(new WarpHyper()).setCloneable(true);
 		deathlyWarpPageItem = new DeathlyWarpPageItem("deathlywarppage");
 		legacyPageItem = new LegacyWarpPageItem("warppage");
 		
 		//Potions
-		unboundWarpPotionItem = new UnboundWarpPotionItem();
-		locusWarpPotionItem = new LocusWarpPotionItem();
-		playerWarpPotionItem = new PlayerWarpPotionItem();
-		hyperWarpPotionItem = new HyperWarpPotionItem();
+		unboundWarpPotionItem = new UnboundWarpPotionItem("unboundwarppotion");
+		locusWarpPotionItem = new WarpPotionItem("boundwarppotion").setWarp(new WarpLocus()).setCloneable(true);
+		playerWarpPotionItem = new WarpPotionItem("playerwarppotion").setWarp(new WarpPlayer()).setCloneable(true);
+		hyperWarpPotionItem = new WarpPotionItem("hyperwarppotion").setWarp(new WarpHyper()).setCloneable(true);
 	}
 	
 	public void register(IForgeRegistry<Item> registry) {
-
+		
 		//Misc
 		registry.register(warpBookItem);
 		registry.register(warpClusterItem);
-
+		
 		//Pages
 		registry.register(unboundWarpPageItem);
 		registry.register(locusWarpPageItem);

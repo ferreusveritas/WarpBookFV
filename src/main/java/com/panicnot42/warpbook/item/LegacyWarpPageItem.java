@@ -26,7 +26,6 @@ public class LegacyWarpPageItem extends WarpPageItem {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
-	//public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
 		ItemStack itemStack = player.getHeldItem(hand);
 		
 		ItemStack newStack;

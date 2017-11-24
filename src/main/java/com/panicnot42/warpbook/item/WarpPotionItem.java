@@ -1,17 +1,13 @@
 package com.panicnot42.warpbook.item;
 
 import com.panicnot42.warpbook.WarpBookMod;
-import com.panicnot42.warpbook.core.IDeclareWarp;
-import com.panicnot42.warpbook.util.Waypoint;
 
 import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
@@ -21,14 +17,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class WarpPotionItem extends Item implements IDeclareWarp, IItemColor {
+public class WarpPotionItem extends WarpItem {
 
-	public static final String unbound = "§4§kUnbound";
-	public static final String ttprefix = "§a";
-	
 	public WarpPotionItem(String name) {
-		setUnlocalizedName(name);
-		setRegistryName(name);
+		super(name);
 		setMaxStackSize(1);
 		setContainerItem(Items.GLASS_BOTTLE);
 	}
@@ -61,14 +53,10 @@ public class WarpPotionItem extends Item implements IDeclareWarp, IItemColor {
 		}
 		
 		if(!hasValidData(stack)) {
-			stack = doBind(world, player, stack);
+			stack = new ItemStack(Items.GLASS_BOTTLE, stack.getCount());
 		}
 		
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
-	}
-	
-	public ItemStack doBind(World world, EntityPlayer player, ItemStack stack) {
-		return new ItemStack(Items.GLASS_BOTTLE, stack.getCount());
 	}
 	
     /**
@@ -85,21 +73,6 @@ public class WarpPotionItem extends Item implements IDeclareWarp, IItemColor {
 	}
 	
 	@Override
-	public String getName(World world, ItemStack stack) {
-		return null;
-	}
-	
-	@Override
-	public Waypoint getWaypoint(EntityPlayer player, ItemStack stack) {
-		return null;
-	}
-	
-	@Override
-	public boolean hasValidData(ItemStack stack) {
-		return false;
-	}
-	
-	@Override
 	public boolean isWarpCloneable(ItemStack stack) {
 		return false;
 	}
@@ -107,12 +80,7 @@ public class WarpPotionItem extends Item implements IDeclareWarp, IItemColor {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public int getColorFromItemstack(ItemStack stack, int tintIndex) {
-		return tintIndex == 0 ? getColor() : 0x00FFFFFF;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public int getColor() {
-		return 0x00FF00FF;
+		return tintIndex == 0 ? getWarpColor().getColor() : 0xFFFFFFFF;
 	}
 	
 }

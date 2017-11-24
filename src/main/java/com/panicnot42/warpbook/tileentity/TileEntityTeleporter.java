@@ -1,5 +1,8 @@
 package com.panicnot42.warpbook.tileentity;
 
+import com.panicnot42.warpbook.core.WarpColors;
+import com.panicnot42.warpbook.item.WarpItem;
+
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,10 +13,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class TileEntityTeleporter extends TileEntity {
-	ItemStack page;
+	ItemStack warpItem;
 	
 	public TileEntityTeleporter() {
-		page = ItemStack.EMPTY;
+		warpItem = ItemStack.EMPTY;
 	}
 	
 	@Override
@@ -33,6 +36,11 @@ public class TileEntityTeleporter extends TileEntity {
 		super.readFromNBT(tag);
 		read(tag);
 	}
+
+	//Packages up the data on the server to send to the client.  Client handles it with handleUpdateTag() which reads it with readFromNBT()
+	public NBTTagCompound getUpdateTag() {
+		return this.writeToNBT(new NBTTagCompound());
+	}
 	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound tag) {
@@ -43,29 +51,33 @@ public class TileEntityTeleporter extends TileEntity {
 	}
 	
 	private void read(NBTTagCompound tag) {
-		page = new ItemStack(tag.getCompoundTag("page"));
+		warpItem = new ItemStack(tag.getCompoundTag("warpitem"));
 	}
 	
 	private void write(NBTTagCompound tag) {
-		if (!page.isEmpty()) {
+		if (!warpItem.isEmpty()) {
 			NBTTagCompound pageTag = new NBTTagCompound();
-			page.writeToNBT(pageTag);
-			tag.setTag("page", pageTag);
+			warpItem.writeToNBT(pageTag);
+			tag.setTag("warpitem", pageTag);
 		}
 	}
 	
-	public ItemStack GetPage() {
-		return page;
+	public ItemStack getWarpItem() {
+		return warpItem;
 	}
 	
-	public void SetPage(ItemStack stack) {
-		page = stack;
+	public void setWarpItem(ItemStack stack) {
+		warpItem = stack;
 		markDirty();
 	}
 	
 	@Override
 	public boolean shouldRefresh(World w, BlockPos pos, IBlockState oldState, IBlockState newState) {
-		return oldState.getBlock() != newState.getBlock();
+		return super.shouldRefresh(world, pos, oldState, newState);
+	}
+	
+	public WarpColors getWarpColor() {
+		return warpItem.getItem() instanceof WarpItem ? ((WarpItem) warpItem.getItem()).getWarpColor() : WarpColors.UNBOUND;
 	}
 	
 }

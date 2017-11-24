@@ -60,6 +60,9 @@ Rationale: A stylistic choice to make the book feel more in line with the materi
 What Changed: Warp book gui improvements.  Button graphics have been fixed. Fwd and Back buttons match vanilla book style. Gui color matches item color of warp book.  
 Rationale: The gui did not match the Vanilla Minecraft book enough for consistancy. The gui looked broken.
 
+What Changed: Warp book can now be dyed to the 16 Minecraft colors.
+Rationale: It's awesome.
+
 
 The Book Cloner
 ---------------

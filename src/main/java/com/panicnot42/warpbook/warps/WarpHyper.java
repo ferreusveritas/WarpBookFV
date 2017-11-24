@@ -1,4 +1,4 @@
-package com.panicnot42.warpbook.item;
+package com.panicnot42.warpbook.warps;
 
 import java.util.List;
 
@@ -13,11 +13,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class HyperWarpPageItem extends WarpPageItem {
-
-	public HyperWarpPageItem(String name) {
-		super(name);
-	}
+public class WarpHyper extends Warp {
 	
 	@Override
 	public String getName(World world, ItemStack stack) {
@@ -38,7 +34,7 @@ public class HyperWarpPageItem extends WarpPageItem {
 		}
 		return null;
 	}
-		
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flagIn) {
@@ -51,20 +47,9 @@ public class HyperWarpPageItem extends WarpPageItem {
 	}
 	
 	@Override
-	public boolean isWarpCloneable(ItemStack stack) {
-		return true;//This is clonable TODO: Make this a configurable option
-	}
-	
-	@Override
 	@SideOnly(Side.CLIENT)
-	public int pageColor() {
-		return WarpColors.UNBOUND.getColor();
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int symbolColor() {
-		return WarpColors.HYPER.getColor();
+	public WarpColors getColor() {
+		return WarpColors.HYPER;
 	}
 	
 }

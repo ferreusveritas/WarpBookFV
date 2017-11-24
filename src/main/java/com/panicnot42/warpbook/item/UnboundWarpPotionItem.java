@@ -1,22 +1,21 @@
 package com.panicnot42.warpbook.item;
 
+import java.util.List;
+
 import com.panicnot42.warpbook.WarpBookMod;
-import com.panicnot42.warpbook.core.WarpColors;
 import com.panicnot42.warpbook.util.WarpUtils;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class UnboundWarpPotionItem extends WarpPotionItem {
-
-	public static final String name = "unboundwarppotion";
-	
-	public UnboundWarpPotionItem() {
-		this(name);
-	}
 	
 	public UnboundWarpPotionItem(String name) {
 		super(name);
@@ -24,7 +23,9 @@ public class UnboundWarpPotionItem extends WarpPotionItem {
 	}
 	
 	@Override
-	public ItemStack doBind(World world, EntityPlayer player, ItemStack stack) {
+	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+		ItemStack stack = player.getHeldItem(hand);
+
 		if (player.isSneaking()) {
 			stack = WarpUtils.bindItemStackToPlayer(new ItemStack(WarpBookMod.items.playerWarpPotionItem, stack.getCount()), player);
 		}
@@ -32,18 +33,12 @@ public class UnboundWarpPotionItem extends WarpPotionItem {
 			WarpUtils.bindItemStackToLocation(new ItemStack(WarpBookMod.items.locusWarpPotionItem), world, player);
 		}
 		
-		return stack;
-	}
-	
-	@Override
-	public boolean isWarpCloneable(ItemStack stack) {
-		return false;//Doesn't make sense to clone anything from this
+		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 	}
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public int getColor() {
-		return WarpColors.UNBOUND.getColor();
+	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flagIn) {
 	}
-
+	
 }

@@ -1,4 +1,4 @@
-package com.panicnot42.warpbook.item;
+package com.panicnot42.warpbook.warps;
 
 import java.math.RoundingMode;
 import java.util.List;
@@ -17,17 +17,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class PlayerWarpPotionItem extends WarpPotionItem {
-
-	public static final String name = "playerwarppotion";
-
-	public PlayerWarpPotionItem() {
-		this(name);
-	}
-	
-	public PlayerWarpPotionItem(String name) {
-		super(name);
-	}
+public class WarpPlayer extends Warp {
 
 	@Override
 	public String getName(World world, ItemStack stack) {
@@ -71,12 +61,7 @@ public class PlayerWarpPotionItem extends WarpPotionItem {
 		return stack.hasTagCompound() && stack.getTagCompound().hasKey("playeruuid");
 
 	}
-	
-	@Override
-	public boolean isWarpCloneable(ItemStack stack) {
-		return true;//Allow this to be written to a page.
-	}
-	
+
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, World world, List<String> tooltip, ITooltipFlag flag) {
@@ -85,8 +70,8 @@ public class PlayerWarpPotionItem extends WarpPotionItem {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public int getColor() {
-		return WarpColors.PLAYER.getColor();
+	public WarpColors getColor() {
+		return WarpColors.PLAYER;
 	}
-
+	
 }
