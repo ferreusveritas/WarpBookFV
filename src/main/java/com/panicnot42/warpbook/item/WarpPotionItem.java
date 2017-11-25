@@ -73,11 +73,6 @@ public class WarpPotionItem extends WarpItem {
 	}
 	
 	@Override
-	public boolean isWarpCloneable(ItemStack stack) {
-		return false;
-	}
-	
-	@Override
 	@SideOnly(Side.CLIENT)
 	public int getColorFromItemstack(ItemStack stack, int tintIndex) {
 		return tintIndex == 0 ? getWarpColor().getColor() : 0xFFFFFFFF;

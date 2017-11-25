@@ -34,11 +34,6 @@ public class WarpPageItem extends WarpItem {
 	}
 	
 	@Override
-	public boolean isWarpCloneable(ItemStack stack) {
-		return false;
-	}
-	
-	@Override
 	public boolean canGoInBook() {
 		return true;
 	}

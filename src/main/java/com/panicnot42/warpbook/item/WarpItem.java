@@ -64,7 +64,7 @@ public class WarpItem extends Item implements IDeclareWarp, IItemColor {
 	
 	/** Can this be copied to a page? Either in the book cloner or via a copy recipe */
 	public boolean isWarpCloneable(ItemStack stack) {
-		return cloneable && hasValidData(stack);
+		return cloneable;
 	}
 
 	public boolean canGoInBook() {
