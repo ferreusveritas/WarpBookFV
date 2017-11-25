@@ -21,6 +21,7 @@ public class LegacyWarpPageItem extends WarpPageItem {
 	public LegacyWarpPageItem(String name) {
 		super(name);
 		setHasSubtypes(true);
+		setCreativeTab(null);
 		setMaxDamage(0);
 	}
 	

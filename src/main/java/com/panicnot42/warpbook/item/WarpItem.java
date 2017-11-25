@@ -28,7 +28,6 @@ public class WarpItem extends Item implements IDeclareWarp, IItemColor {
 	public WarpItem(String name) {
 		setUnlocalizedName(name);
 		setRegistryName(name);
-		setCreativeTab(WarpBookMod.tabBook);
 	}
 	
 	public WarpItem setWarp(Warp warp) {
