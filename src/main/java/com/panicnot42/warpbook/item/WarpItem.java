@@ -2,7 +2,6 @@ package com.panicnot42.warpbook.item;
 
 import java.util.List;
 
-import com.panicnot42.warpbook.WarpBookMod;
 import com.panicnot42.warpbook.core.IDeclareWarp;
 import com.panicnot42.warpbook.core.WarpColors;
 import com.panicnot42.warpbook.util.Waypoint;
