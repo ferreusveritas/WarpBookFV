@@ -21,3 +21,6 @@ build
 eclipse
 run
 libs
+/.gitmodules
+/.travis.yml
+/Manifest.txt
