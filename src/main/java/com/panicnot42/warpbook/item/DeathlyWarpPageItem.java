@@ -3,13 +3,12 @@ package com.panicnot42.warpbook.item;
 import com.panicnot42.warpbook.WarpBookMod;
 import com.panicnot42.warpbook.core.WarpColors;
 
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class DeathlyWarpPageItem extends Item implements IItemColor {
+public class DeathlyWarpPageItem extends Item implements IColorable {
 	public DeathlyWarpPageItem(String name) {
 		setUnlocalizedName(name);
 		setRegistryName(name);
@@ -19,7 +18,7 @@ public class DeathlyWarpPageItem extends Item implements IItemColor {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+	public int getColor(ItemStack stack, int tintIndex) {
 		switch(tintIndex) {
 			case 0: return pageColor();
 			case 1: return symbolColor();

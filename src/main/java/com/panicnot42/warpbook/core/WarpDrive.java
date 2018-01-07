@@ -27,6 +27,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 public class WarpDrive {
+		
 	public void handleWarp(EntityPlayer player, ItemStack warpItem)	{
 		if (warpItem.getItem() instanceof IDeclareWarp && !player.world.isRemote) {
 			Waypoint wp = ((IDeclareWarp)warpItem.getItem()).getWaypoint(player, warpItem);

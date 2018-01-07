@@ -10,7 +10,6 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -26,7 +25,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class BlockTeleporter extends Block implements ITileEntityProvider, IBlockColor {
+public class BlockTeleporter extends Block implements ITileEntityProvider, IColorableBlock {
 	protected static final AxisAlignedBB TELEPORTER_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 4.0D / 16.0D, 1.0D);
 	
 	public BlockTeleporter() {
@@ -96,7 +95,8 @@ public class BlockTeleporter extends Block implements ITileEntityProvider, IBloc
     }
 	
 	@Override
-	public int colorMultiplier(IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
+    @SideOnly(Side.CLIENT)
+	public int getColor(IBlockState state, IBlockAccess world, BlockPos pos, int tintIndex) {
 		TileEntityTeleporter teleporter = (TileEntityTeleporter)world.getTileEntity(pos);
 		if(teleporter instanceof TileEntityTeleporter) {
 			WarpColors wc = teleporter.getWarpColor();

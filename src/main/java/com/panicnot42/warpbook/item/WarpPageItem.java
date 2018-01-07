@@ -40,7 +40,7 @@ public class WarpPageItem extends WarpItem {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+	public int getColor(ItemStack stack, int tintIndex) {
 		switch(tintIndex) {
 			case 0: return pageColor();
 			case 1: return symbolColor();

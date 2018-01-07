@@ -11,6 +11,8 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class TileEntityTeleporter extends TileEntity {
 	ItemStack warpItem;
@@ -76,6 +78,7 @@ public class TileEntityTeleporter extends TileEntity {
 		return super.shouldRefresh(world, pos, oldState, newState);
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public WarpColors getWarpColor() {
 		return warpItem.getItem() instanceof WarpItem ? ((WarpItem) warpItem.getItem()).getWarpColor() : WarpColors.UNBOUND;
 	}

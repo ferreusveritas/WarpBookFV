@@ -7,7 +7,6 @@ import com.panicnot42.warpbook.core.WarpColors;
 import com.panicnot42.warpbook.util.Waypoint;
 import com.panicnot42.warpbook.warps.Warp;
 
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -16,7 +15,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class WarpItem extends Item implements IDeclareWarp, IItemColor {
+public class WarpItem extends Item implements IDeclareWarp, IColorable {
 	
 	public static final String unbound = "§4§kUnbound";
 	public static final String ttprefix = "§a";
@@ -71,7 +70,7 @@ public class WarpItem extends Item implements IDeclareWarp, IItemColor {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+	public int getColor(ItemStack stack, int tintIndex) {
 		return 0xFFFFFFFF;
 	}
 	

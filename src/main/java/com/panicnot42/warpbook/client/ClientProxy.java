@@ -2,13 +2,19 @@ package com.panicnot42.warpbook.client;
 
 import com.panicnot42.warpbook.Proxy;
 import com.panicnot42.warpbook.WarpBookMod;
+import com.panicnot42.warpbook.item.IColorable;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -16,6 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ClientProxy extends Proxy {
 	@Override
 	public void registerRenderers() {
+				
 		//Misc
 		regMesh(WarpBookMod.items.warpBookItem);
 		regMesh(WarpBookMod.items.warpClusterItem);
@@ -39,7 +46,15 @@ public class ClientProxy extends Proxy {
 		regMesh(Item.getItemFromBlock(WarpBookMod.blocks.bookCloner));
 		regMesh(Item.getItemFromBlock(WarpBookMod.blocks.teleporter));
 	
-		Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(WarpBookMod.blocks.teleporter, new Block[] {WarpBookMod.blocks.teleporter});
+		Minecraft.getMinecraft().getBlockColors().registerBlockColorHandler(
+				new IBlockColor() {
+					@Override
+					public int colorMultiplier(IBlockState state, IBlockAccess access, BlockPos pos, int tintIndex) {
+						return WarpBookMod.blocks.teleporter.getColor(state, access, pos, tintIndex);
+					}
+				}
+				, new Block[] {WarpBookMod.blocks.teleporter}
+			);
 	}
 	
 	private void regMesh(Item item) {
@@ -47,12 +62,22 @@ public class ClientProxy extends Proxy {
 	}
 	
 	private void regMesh(Item item, int meta) {
+		
 		ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
 		mesher.register(item, meta, new ModelResourceLocation(item.getRegistryName(), "inventory"));
-
+		
 		//Register Color Handler for the item.
-		if(item instanceof IItemColor) {
-			Minecraft.getMinecraft().getItemColors().registerItemColorHandler((IItemColor) item, new Item[] {item});
+		if(item instanceof IColorable) {
+			Minecraft.getMinecraft().getItemColors().registerItemColorHandler(
+					new IItemColor() {
+						@Override
+						public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+							return ((IColorable) item).getColor(stack, tintIndex);
+						}
+						
+					}
+					, new Item[] {item}
+				);
 		}
 	}
 	

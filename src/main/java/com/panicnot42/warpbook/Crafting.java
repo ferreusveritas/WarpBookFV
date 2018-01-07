@@ -2,12 +2,12 @@ package com.panicnot42.warpbook;
 
 import com.panicnot42.warpbook.crafting.WarpBookColorShapeless;
 import com.panicnot42.warpbook.crafting.WarpPageShapeless;
+import com.panicnot42.warpbook.item.WarpBookItem;
 import com.panicnot42.warpbook.item.WarpPageItem;
 import com.panicnot42.warpbook.item.WarpPotionItem;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -130,27 +130,27 @@ public class Crafting {
 		potionToPaper(registry, (WarpPotionItem)WarpBookMod.items.hyperWarpPotionItem, (WarpPageItem) WarpBookMod.items.hyperWarpPageItem);
 		
 		//Recipe to color a warp book cover
-		for(int dye = 0; dye < 16; dye++) {
+		for(WarpBookItem.BookColor color : WarpBookItem.BookColor.values()) {
 			ItemStack dyedBook = new ItemStack(WarpBookMod.items.warpBookItem);
 			NBTTagCompound tag = new NBTTagCompound();
-			tag.setInteger("color", EnumDyeColor.byDyeDamage(dye).getColorValue());
+			tag.setInteger("color", color.getColor());
 			dyedBook.setTagCompound(tag);
 			registry.register(
 				new WarpBookColorShapeless(
 					dyedBook,//Output
 					NonNullList.from(null,
 						Ingredient.fromStacks(new ItemStack(WarpBookMod.items.warpBookItem)),
-						Ingredient.fromStacks(new ItemStack(Items.DYE, 1, dye))
+						Ingredient.fromStacks(new ItemStack(Items.DYE, 1, color.getIndex()))
 					)
-				).setRegistryName(Properties.modid, "dyeWarpBook_" + dye)
+				).setRegistryName(Properties.modid, "dyeWarpBook_" + color.getIndex())
 			);
 		}
 
 		//Recipe to clear the color from a warp book cover
 		ItemStack dyedBook = new ItemStack(WarpBookMod.items.warpBookItem);
 		NBTTagCompound tag = new NBTTagCompound();
-		//We'll set the washing example to purple(5) because it's pretty ugly and full of regret. ;)
-		tag.setInteger("color", EnumDyeColor.byDyeDamage(5).getColorValue());
+		//We'll set the washing example to magenta because it's pretty ugly and full of regret. ;)
+		tag.setInteger("color", WarpBookItem.BookColor.MAGENTA.getColor());
 		dyedBook.setTagCompound(tag);
 		registry.register(
 			new WarpBookColorShapeless(

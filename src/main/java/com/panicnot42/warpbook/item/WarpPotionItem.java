@@ -74,7 +74,7 @@ public class WarpPotionItem extends WarpItem {
 	
 	@Override
 	@SideOnly(Side.CLIENT)
-	public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+	public int getColor(ItemStack stack, int tintIndex) {
 		return tintIndex == 0 ? getWarpColor().getColor() : 0xFFFFFFFF;
 	}
 	
