@@ -23,48 +23,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class WarpBookItem extends Item implements IColorable {
 	
-	public enum BookColor {
-	    WHITE(0, "white", 16383998),
-	    ORANGE(1, "orange", 16351261),
-	    MAGENTA(2, "magenta", 13061821),
-	    LIGHT_BLUE(3, "light_blue", 3847130),
-	    YELLOW(4, "yellow", 16701501),
-	    LIME(5, "lime", 8439583),
-	    PINK(6, "pink", 15961002),
-	    GRAY(7, "gray", 4673362),
-	    SILVER(8, "silver", 10329495),
-	    CYAN(9, "cyan", 1481884),
-	    PURPLE(10, "purple", 8991416),
-	    BLUE(11, "blue", 3949738),
-	    BROWN(12, "brown", 8606770),
-	    GREEN(13, "green", 6192150),
-	    RED(14, "red", 11546150),
-	    BLACK(15, "black", 1908001);
-	    
-		private int index;
-		private String name;
-		private int color;
-		
-	    BookColor(int index, String name, int color) {
-	    	this.index = index;
-	    	this.name = name;
-	    	this.color = color;
-	    }
-
-	    public int getIndex() {
-	    	return index;
-	    }
-
-	    public String getName() {
-	    	return name;
-	    }
-	    
-	    public int getColor() {
-	    	return color;
-	    }
-	    
-	}
-	
 	public WarpBookItem(String name) {
 		setUnlocalizedName(name);
 		setRegistryName(name);

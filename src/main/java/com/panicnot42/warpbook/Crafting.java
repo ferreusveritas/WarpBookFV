@@ -2,12 +2,12 @@ package com.panicnot42.warpbook;
 
 import com.panicnot42.warpbook.crafting.WarpBookColorShapeless;
 import com.panicnot42.warpbook.crafting.WarpPageShapeless;
-import com.panicnot42.warpbook.item.WarpBookItem;
 import com.panicnot42.warpbook.item.WarpPageItem;
 import com.panicnot42.warpbook.item.WarpPotionItem;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -19,6 +19,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreIngredient;
 import net.minecraftforge.oredict.RecipeSorter;
 import net.minecraftforge.oredict.RecipeSorter.Category;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -129,28 +130,30 @@ public class Crafting {
 		//Recipe to apply hyper potion to an unbound page or plain paper
 		potionToPaper(registry, (WarpPotionItem)WarpBookMod.items.hyperWarpPotionItem, (WarpPageItem) WarpBookMod.items.hyperWarpPageItem);
 		
+		String[] dyeValues = new String[] { "Black", "Red", "Green", "Brown", "Blue", "Purple", "Cyan", "LightGray", "Gray", "Pink", "Lime", "Yellow", "LightBlue", "Magenta", "Orange", "White" };
+		
 		//Recipe to color a warp book cover
-		for(WarpBookItem.BookColor color : WarpBookItem.BookColor.values()) {
+		for(EnumDyeColor color : EnumDyeColor.values()) {
 			ItemStack dyedBook = new ItemStack(WarpBookMod.items.warpBookItem);
 			NBTTagCompound tag = new NBTTagCompound();
-			tag.setInteger("color", color.getColor());
+			tag.setInteger("color", color.getColorValue());
 			dyedBook.setTagCompound(tag);
 			registry.register(
 				new WarpBookColorShapeless(
 					dyedBook,//Output
 					NonNullList.from(null,
 						Ingredient.fromStacks(new ItemStack(WarpBookMod.items.warpBookItem)),
-						Ingredient.fromStacks(new ItemStack(Items.DYE, 1, color.getIndex()))
+						new OreIngredient("dye" + dyeValues[color.getDyeDamage()])
 					)
-				).setRegistryName(Properties.modid, "dyeWarpBook_" + color.getIndex())
+				).setRegistryName(Properties.modid, "dyeWarpBook_" + color.getDyeDamage())
 			);
 		}
-
+		
 		//Recipe to clear the color from a warp book cover
 		ItemStack dyedBook = new ItemStack(WarpBookMod.items.warpBookItem);
 		NBTTagCompound tag = new NBTTagCompound();
 		//We'll set the washing example to magenta because it's pretty ugly and full of regret. ;)
-		tag.setInteger("color", WarpBookItem.BookColor.MAGENTA.getColor());
+		tag.setInteger("color", EnumDyeColor.MAGENTA.getColorValue());
 		dyedBook.setTagCompound(tag);
 		registry.register(
 			new WarpBookColorShapeless(
