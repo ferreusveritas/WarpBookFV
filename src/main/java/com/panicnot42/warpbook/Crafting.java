@@ -4,6 +4,7 @@ import com.panicnot42.warpbook.crafting.WarpBookColorShapeless;
 import com.panicnot42.warpbook.crafting.WarpPageShapeless;
 import com.panicnot42.warpbook.item.WarpPageItem;
 import com.panicnot42.warpbook.item.WarpPotionItem;
+import com.panicnot42.warpbook.util.JavaUtils;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -136,7 +137,7 @@ public class Crafting {
 		for(EnumDyeColor color : EnumDyeColor.values()) {
 			ItemStack dyedBook = new ItemStack(WarpBookMod.items.warpBookItem);
 			NBTTagCompound tag = new NBTTagCompound();
-			tag.setInteger("color", color.getColorValue());
+			tag.setInteger("color", getColorValue(color));
 			dyedBook.setTagCompound(tag);
 			registry.register(
 				new WarpBookColorShapeless(
@@ -153,7 +154,7 @@ public class Crafting {
 		ItemStack dyedBook = new ItemStack(WarpBookMod.items.warpBookItem);
 		NBTTagCompound tag = new NBTTagCompound();
 		//We'll set the washing example to magenta because it's pretty ugly and full of regret. ;)
-		tag.setInteger("color", EnumDyeColor.MAGENTA.getColorValue());
+		tag.setInteger("color", getColorValue(EnumDyeColor.MAGENTA));
 		dyedBook.setTagCompound(tag);
 		registry.register(
 			new WarpBookColorShapeless(
@@ -165,6 +166,10 @@ public class Crafting {
 			).setRegistryName(Properties.modid, "dyeWarpBook_X")
 		);
 		
+	}
+	
+	public int getColorValue(EnumDyeColor from) {
+		return (int) JavaUtils.getRestrictedObject(EnumDyeColor.class, from, "field_193351_w", "colorValue");
 	}
 	
 	private void potionToPaper(IForgeRegistry<IRecipe> registry, WarpPotionItem potionIn, WarpPageItem pageOut) {
